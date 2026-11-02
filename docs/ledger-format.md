@@ -77,5 +77,5 @@ Run the tool's self-test with `python3 tools/ledger_health.py --self-test`.
 ## Next steps
 
 - [Worked example ledger](../examples/ledger.yaml)
-- [Autonomy contract template](contract-template.md)
+- [Autonomy contract & review agenda template](contract-template.md)
 - [Maturity model: the Autonomy Ledger](maturity-model.md#5-the-autonomy-ledger)

@@ -30,6 +30,7 @@ flowchart LR
 | [Positioning](docs/positioning.md) | Related work, lineage, open questions, BibTeX |
 | [Worked example](examples/README.md) | One team, scored end to end, producing a governance move |
 | [Ledger format](docs/ledger-format.md) | Machine-readable Autonomy Ledger (YAML v1) + health checks |
+| [Contract template](docs/contract-template.md) | Autonomy contract + review agenda, ready to copy |
 
 ## Quick start: score a team
 

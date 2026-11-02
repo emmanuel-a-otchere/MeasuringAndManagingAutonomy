@@ -14,6 +14,7 @@
 - [x] CI workflow: tool self-test, CLI smoke test, docs consistency (pulled forward from v0.3)
 - [x] Machine-readable Autonomy Ledger (YAML v1) + `ledger_health.py` validation & health tool (pulled forward from v0.3)
 - [x] Reference ledger seeded from the worked example (`examples/ledger.yaml`)
+- [x] Autonomy contract + review agenda template (`docs/contract-template.md`)
 
 ## v0.2 — Validation
 
@@ -37,6 +38,7 @@
 - [ ] Frozen level definitions and scoring rules; semantic versioning of the
       maturity model so assessments stay comparable over time
 - [ ] Cross-cultural validation of level norms
+- [x] Autonomy contract + review agenda template (`docs/contract-template.md`)
 - [ ] Printable assessment pack (one-pager + rubric)
 
 ## How to help
