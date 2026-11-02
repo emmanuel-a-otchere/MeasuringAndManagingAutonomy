@@ -18,6 +18,9 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install PyYAML (ledger tooling)
+        run: python3 -m pip install --quiet pyyaml
+
       - name: Compile check (all tooling)
         run: |
           python3 -m compileall -q tools
