@@ -61,7 +61,7 @@ jobs:
           pyinstaller --onefile --clean --name autonomy-score src/measuring_autonomy/score.py
           pyinstaller --onefile --clean --name ledger-health src/measuring_autonomy/ledger.py
 
-      - name: Gate: self-test + CLI smoke on the built binaries
+      - name: "Gate: self-test + CLI smoke on the built binaries"
         shell: bash
         run: |
           ext=""
