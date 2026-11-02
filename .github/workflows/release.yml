@@ -57,6 +57,7 @@ jobs:
 
       - name: Build one-file binaries
         run: |
+          python3 -m pip install --quiet .
           python3 -m pip install --quiet pyinstaller
           pyinstaller --onefile --clean --name autonomy-score src/measuring_autonomy/score.py
           pyinstaller --onefile --clean --name ledger-health src/measuring_autonomy/ledger.py
