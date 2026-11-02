@@ -118,7 +118,9 @@ Interpretation:
 
 Every assessment produces four artifacts, filed with the autonomy contract:
 
-1. **Scorecard** — six dimension scores per domain, with evidence links.
+1. **Scorecard** — six dimension scores per domain, with evidence links and
+   the **ruleset version** that produced them (emitted automatically by the
+   CLI and the web tool; see [versioning](versioning.md)).
 2. **Gap list** — specific items that failed, ranked by (impact × effort to fix).
 3. **Recommended move** — expand / contract / re-shape / hold-and-coach,
    per the [decision table](maturity-model.md#4-from-scores-to-decisions).

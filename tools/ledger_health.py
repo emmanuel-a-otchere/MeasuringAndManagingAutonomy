@@ -49,6 +49,12 @@ REQUIRED_FIELDS = (
 STATUSES = ("active", "expired", "revoked", "draft")
 DEFAULT_CADENCE_DAYS = 90
 
+# Ledger format version handled by this tool (docs/versioning.md, docs/ledger-format.md).
+# Ledgers without a top-level `schema:` field are treated as schema 1
+# (backward compatibility with pre-versioning files). A newer schema than
+# supported is a warning, not an error: report on what is understood.
+SUPPORTED_SCHEMA_VERSION = 1
+
 
 def parse_date(value) -> dt.date | None:
     if isinstance(value, dt.date):
@@ -112,6 +118,16 @@ def check_contract(c: dict, today: dt.date, idx: int) -> tuple[list[str], dict]:
 
 
 def health_report(ledger: dict, today: dt.date) -> dict:
+    schema = ledger.get("schema", SUPPORTED_SCHEMA_VERSION)
+    if not isinstance(schema, int) or schema < 1:
+        raise ValueError(f"ledger 'schema' must be a positive integer, got {schema!r}")
+    warnings: list[str] = []
+    if schema > SUPPORTED_SCHEMA_VERSION:
+        warnings.append(
+            f"ledger declares schema v{schema}; this tool supports v{SUPPORTED_SCHEMA_VERSION} — "
+            "validating the v1 fields it understands; upgrade the tool for full support"
+        )
+
     contracts = ledger.get("contracts")
     if not isinstance(contracts, list):
         raise ValueError("ledger must contain a 'contracts' list")
@@ -134,6 +150,8 @@ def health_report(ledger: dict, today: dt.date) -> dict:
     active = [m for m in metrics if m["status"] == "active"]
     valid = [m for m in metrics if m["id"] and m["status"] in ("active", "draft")]
     report = {
+        "schema_version": schema,
+        "schema_warnings": warnings,
         "total_contracts": len(metrics),
         "active": len(active),
         "valid": len(valid),
@@ -153,6 +171,9 @@ def render(report: dict) -> str:
         f"Contracts: {report['total_contracts']} total, {report['active']} active"
     )
     lines.append(f"Coverage: {int(report['coverage'] * 100)}% valid contracts")
+    lines.append(f"Ledger schema: v{report['schema_version']}")
+    for w in report.get("schema_warnings", []):
+        lines.append(f"warning: {w}")
     if report["stale_reviews"]:
         lines.append(f"STALE reviews (past cadence): {', '.join(report['stale_reviews'])}")
     else:
@@ -212,6 +233,27 @@ def _self_test() -> None:
     inv = {"contracts": [dict(good["contracts"][0], horizon="2025-06-30", last_review="2025-09-30")]}
     r = health_report(inv, today)
     assert any("after horizon" in e for e in r["validity_errors"]), r["validity_errors"]
+
+    # schema handling: missing field = schema 1 (backward compatible)
+    r = health_report({"contracts": [good["contracts"][0]]}, today)
+    assert r["schema_version"] == 1 and not r["schema_warnings"], r
+
+    # explicit schema 1 is accepted
+    r = health_report({"schema": 1, "contracts": [good["contracts"][0]]}, today)
+    assert r["schema_version"] == 1 and not r["schema_warnings"], r
+
+    # future schema: warns but still validates (forward compatibility)
+    r = health_report({"schema": 2, "contracts": [good["contracts"][0]]}, today)
+    assert r["schema_version"] == 2 and r["schema_warnings"], r
+    assert not r["validity_errors"], r
+
+    # invalid schema value
+    try:
+        health_report({"schema": "one", "contracts": []}, today)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("expected ValueError for non-integer schema")
 
     # not a contracts list
     for bad_ledger in ({}, {"contracts": "nope"}):

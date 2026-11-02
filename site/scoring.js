@@ -27,6 +27,12 @@
   var WEAKEST_LINK = ["D3", "D4", "D6"];
   var CLEAN_CYCLES_TO_EXPAND = 2;
 
+  // Semantic version of the scoring ruleset (docs/versioning.md).
+  // Kept identical to tools/autonomy_score.py; parity asserted by both
+  // self-tests. MAJOR = re-scoring; MINOR = additive/clarification; PATCH = no
+  // change to scored outputs.
+  var RULESET_VERSION = "1.0.0";
+
   // Question items per (dimension, level), from docs/assessment.md.
   // A dimension scores at level n if all items for levels <= n are true.
   var QUESTIONS = {
@@ -129,6 +135,7 @@
 
   function assess(scores, current) {
     return {
+      rulesetVersion: RULESET_VERSION,
       scores: scores,
       safeGrantLevel: safeLevel(scores),
       grantedLevel: current === undefined ? null : current,
@@ -141,6 +148,7 @@
     DIMENSIONS: DIMENSIONS,
     LEVEL_NAMES: LEVEL_NAMES,
     WEAKEST_LINK: WEAKEST_LINK,
+    RULESET_VERSION: RULESET_VERSION,
     QUESTIONS: QUESTIONS,
     scoreDimension: scoreDimension,
     safeLevel: safeLevel,

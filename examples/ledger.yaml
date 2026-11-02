@@ -1,6 +1,8 @@
 # Autonomy Ledger — reference file (v1 format, see docs/ledger-format.md)
 # The registry of granted autonomy (supply side). Seed entries come from the
 # worked example in examples/README.md; replace with your own.
+schema: 1
+
 
 contracts:
   # --- Worked example: payments team, formalized at L2 -------------------

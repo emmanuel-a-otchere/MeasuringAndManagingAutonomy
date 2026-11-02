@@ -41,6 +41,8 @@ explicit exclusions (what still requires approval).
 D1 clarity / D2 capability / D3 guardrails / D4 telemetry / D5 transparency /
 D6 accountability — scores with evidence, per docs/assessment.md.
 Safe level (min D3, D4, D6): <L*>
+Ruleset version used for this baseline: <e.g. 1.0.0> (see docs/versioning.md —
+scores are comparable only within the same MAJOR ruleset version)
 
 ## Notes
 <why this level, what changed vs the previous version, incident history>

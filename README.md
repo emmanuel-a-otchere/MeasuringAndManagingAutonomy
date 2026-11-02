@@ -31,6 +31,8 @@ flowchart LR
 | [Worked example](examples/README.md) | One team, scored end to end, producing a governance move |
 | [Ledger format](docs/ledger-format.md) | Machine-readable Autonomy Ledger (YAML v1) + health checks |
 | [Contract template](docs/contract-template.md) | Autonomy contract + review agenda, ready to copy |
+| [Versioning](docs/versioning.md) | Ruleset/ledger versioning policy — how assessments stay comparable |
+| [Changelog](CHANGELOG.md) | Every change, classified by comparability impact |
 
 ## Quick start: score a team
 

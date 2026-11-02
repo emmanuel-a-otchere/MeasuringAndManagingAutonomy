@@ -51,6 +51,19 @@ check("stable at level = hold", hold.recommendedMove.startsWith("hold: stable"))
 
 // parity with the Python tool on the worked example
 // (python3 tools/autonomy_score.py 1 3 2 2 1 1 -> safe level 1, formalize)
+
+// ruleset versioning (docs/versioning.md): stamp present in every assessment,
+// and identical to the Python implementation -- cross-implementation drift is
+// a release blocker
+check("ruleset version is 1.0.0", A.RULESET_VERSION === "1.0.0");
+check("assess() records ruleset version",
+  A.assess({ D1: 1, D2: 1, D3: 1, D4: 1, D5: 1, D6: 1 }, 1).rulesetVersion === "1.0.0");
+const fs = require("fs");
+const py = fs.readFileSync(__dirname + "/../tools/autonomy_score.py", "utf8");
+const pyVer = (py.match(/RULESET_VERSION = "([^"]+)"/) || [])[1];
+check("version parity with autonomy_score.py",
+  pyVer !== undefined && pyVer === A.RULESET_VERSION);
+
 check("question set covers all six dimensions",
   Object.keys(A.QUESTIONS).length === 6 &&
   A.DIMENSIONS.every(d => A.QUESTIONS[d.code] &&
