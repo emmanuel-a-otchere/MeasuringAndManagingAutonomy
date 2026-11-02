@@ -1,0 +1,59 @@
+# Autonomy Ledger — reference file (v1 format, see docs/ledger-format.md)
+# The registry of granted autonomy (supply side). Seed entries come from the
+# worked example in examples/README.md; replace with your own.
+
+contracts:
+  # --- Worked example: payments team, formalized at L2 -------------------
+  - id: payments-deploys-v2
+    unit: payments-team
+    domain: production-deploys
+    level: 2
+    scope: >
+      Production deploys of the payments service (excl. schema migrations).
+    guardrails:
+      - CI gates mandatory on every deploy
+      - Canary on every deploy
+      - Max 10 deploys/day
+      - Auto-rollback exercised before go-live
+    telemetry:
+      - Deploy log shared with grantor
+      - Error budget dashboard, grantor-visible
+      - Breach alerts routed to grantor automatically
+    revocation_triggers:
+      - Error budget burn > 50% in a week
+      - Any un-reviewed schema migration
+      - Missed review cadence
+    escalation: oncall-lead -> eng-director, 30-min SLA business hours
+    grantor: eng-director-payments
+    horizon: 2025-12-31
+    last_review: 2025-09-30
+    review_cadence_days: 90
+    status: active
+    notes: >
+      Formalized 2025-07 after the inventory found shadow autonomy at ~L2.
+      First re-review raised D3/D4/D6; held at L2 pending a second clean cycle.
+
+  # --- Second entry: shows a fresh L1 grant with a short horizon ---------
+  - id: payments-infra-spend-v1
+    unit: payments-team
+    domain: infra-spend
+    level: 1
+    scope: >
+      Non-committed infra spending decisions up to $500; everything above
+      requires grantor approval.
+    guardrails:
+      - Hard $500 per-decision cap enforced by the cloud policy
+    telemetry:
+      - Monthly spend report reviewed by grantor
+    revocation_triggers:
+      - Any single spend above the cap
+      - Two months of unreviewed spend
+    escalation: team-lead -> eng-director, before commitment
+    grantor: eng-director-payments
+    horizon: 2026-03-31
+    last_review: 2025-10-15
+    review_cadence_days: 90
+    status: active
+    notes: >
+      First formal contract for this domain; capability (D2) scored 2, so
+      L1 inform-after with a short horizon.

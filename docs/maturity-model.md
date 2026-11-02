@@ -75,6 +75,11 @@ incomplete has *shadow autonomy* — real decision rights that exist nowhere on
 paper. The first assessment in most organizations should start by inventorying
 granted autonomy, including the informal kind.
 
+The ledger has a machine-readable format — see
+[ledger-format.md](ledger-format.md) — with a reference file at
+[`examples/ledger.yaml`](../examples/ledger.yaml) and a validation/health tool
+at [`tools/ledger_health.py`](../tools/ledger_health.py).
+
 ## Next steps
 
 - Run the [Assessment](assessment.md) to produce scores in practice
