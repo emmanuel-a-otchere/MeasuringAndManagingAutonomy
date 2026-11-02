@@ -11,6 +11,9 @@
 - [x] Scoring CLI with self-test (tools/autonomy_score.py)
 - [x] Positioning and related work (docs/positioning.md)
 - [x] Mermaid framework diagram (renders natively on GitHub)
+- [x] CI workflow: tool self-test, CLI smoke test, docs consistency (pulled forward from v0.3)
+- [x] Machine-readable Autonomy Ledger (YAML v1) + `ledger_health.py` validation & health tool (pulled forward from v0.3)
+- [x] Reference ledger seeded from the worked example (`examples/ledger.yaml`)
 
 ## v0.2 — Validation
 
@@ -22,11 +25,11 @@
 
 ## v0.3 — Tooling & reach
 
-- [ ] Autonomy Ledger as a machine-readable format (YAML/CSV) + ledger
-      health report (coverage, staleness)
+- [x] Autonomy Ledger as a machine-readable format (YAML) + ledger
+      health report (coverage, staleness) — pulled forward into v0.1
 - [ ] Web-based self-assessment (static site) replacing the CLI for
       non-technical audiences
-- [ ] CI: run the tool's self-test on every push
+- [x] CI: run the tool's self-test on every push — pulled forward into v0.1
 - [ ] Case studies from 2+ different industries
 
 ## v1.0 — Stability

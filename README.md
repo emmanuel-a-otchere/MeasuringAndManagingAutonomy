@@ -29,6 +29,7 @@ flowchart LR
 | [Governance loop](docs/governance-loop.md) | Grant → Instrument → Observe → Review, with cadence and anti-patterns |
 | [Positioning](docs/positioning.md) | Related work, lineage, open questions, BibTeX |
 | [Worked example](examples/README.md) | One team, scored end to end, producing a governance move |
+| [Ledger format](docs/ledger-format.md) | Machine-readable Autonomy Ledger (YAML v1) + health checks |
 
 ## Quick start: score a team
 
@@ -43,6 +44,13 @@ outputs the safe grant level and recommended move.
 
 ```bash
 python3 tools/autonomy_score.py --self-test   # verify the scoring rules
+```
+
+Track granted autonomy in a machine-readable **Autonomy Ledger** (v1 YAML
+format, [`examples/ledger.yaml`](examples/ledger.yaml)) and check its health:
+
+```bash
+python3 tools/ledger_health.py examples/ledger.yaml
 ```
 
 ## The three questions
