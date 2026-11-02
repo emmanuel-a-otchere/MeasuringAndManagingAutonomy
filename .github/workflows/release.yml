@@ -12,9 +12,9 @@ jobs:
     name: Wheel + sdist, smoke-tested
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
 
@@ -33,7 +33,7 @@ jobs:
           /tmp/reltest/bin/autonomy-score 2 3 3 3 2 2 --current 2 --json > /dev/null
           /tmp/reltest/bin/ledger-health examples/ledger.yaml --today 2025-10-01
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: python-dist
           path: dist/
@@ -49,9 +49,9 @@ jobs:
           - { os: ubuntu-latest,  osname: linux,   arch: x86_64 }
           - { os: windows-latest, osname: windows, arch: x86_64 }
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.11"
 
@@ -80,7 +80,7 @@ jobs:
           cp dist/autonomy-score$ext dist/autonomy-score-${{ matrix.osname }}-${{ matrix.arch }}$ext
           cp dist/ledger-health$ext  dist/ledger-health-${{ matrix.osname }}-${{ matrix.arch }}$ext
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: binaries-${{ matrix.osname }}-${{ matrix.arch }}
           path: |
@@ -92,9 +92,9 @@ jobs:
     needs: [build-python, binaries]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           path: assets
           merge-multiple: true
