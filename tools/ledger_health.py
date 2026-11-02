@@ -17,7 +17,7 @@ Usage:
     python3 tools/ledger_health.py ledger.yaml --today 2025-12-31
     python3 tools/ledger_health.py --self-test
 
-Requires PyYAML (standard on GitHub runners; pip install pyyaml otherwise).
+Requires PyYAML (pip install pyyaml; CI installs it).
 License: MIT (see LICENSE).
 """
 from __future__ import annotations

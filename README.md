@@ -53,7 +53,7 @@ Track granted autonomy in a machine-readable **Autonomy Ledger** (v1 YAML
 format, [`examples/ledger.yaml`](examples/ledger.yaml)) and check its health:
 
 ```bash
-python3 tools/ledger_health.py examples/ledger.yaml
+python3 tools/ledger_health.py examples/ledger.yaml   # requires PyYAML (pip install pyyaml)
 ```
 
 ## Try it without a terminal
