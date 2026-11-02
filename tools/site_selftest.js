@@ -59,7 +59,7 @@ check("ruleset version is 1.0.0", A.RULESET_VERSION === "1.0.0");
 check("assess() records ruleset version",
   A.assess({ D1: 1, D2: 1, D3: 1, D4: 1, D5: 1, D6: 1 }, 1).rulesetVersion === "1.0.0");
 const fs = require("fs");
-const py = fs.readFileSync(__dirname + "/../tools/autonomy_score.py", "utf8");
+const py = fs.readFileSync(__dirname + "/../src/measuring_autonomy/score.py", "utf8");
 const pyVer = (py.match(/RULESET_VERSION = "([^"]+)"/) || [])[1];
 check("version parity with autonomy_score.py",
   pyVer !== undefined && pyVer === A.RULESET_VERSION);

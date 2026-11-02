@@ -1,0 +1,29 @@
+name: Publish to PyPI
+
+# Optional, manual channel. Requires a one-time "trusted publisher" config on
+# pypi.org for this repo (see RELEASE.md step 8) — do not run it before that.
+
+on:
+  workflow_dispatch
+
+jobs:
+  publish:
+    name: Build and publish to PyPI
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build sdist and wheel
+        run: |
+          python3 -m pip install --quiet build
+          python3 -m build
+
+      - name: Publish via PyPI trusted publishing
+        uses: pypa/gh-action-pypi-publish@release/v1
