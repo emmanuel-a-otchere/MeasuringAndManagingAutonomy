@@ -28,8 +28,9 @@
 
 - [x] Autonomy Ledger as a machine-readable format (YAML) + ledger
       health report (coverage, staleness) — pulled forward into v0.1
-- [ ] Web-based self-assessment (static site) replacing the CLI for
-      non-technical audiences
+- [x] Web-based self-assessment — `site/` (static, dependency-free; questionnaire,
+      weakest-link scoring, printable scorecard; scoring engine tested in
+      `tools/site_selftest.js` and checked in CI)
 - [x] CI: run the tool's self-test on every push — pulled forward into v0.1
 - [ ] Case studies from 2+ different industries
 
@@ -39,7 +40,8 @@
       maturity model so assessments stay comparable over time
 - [ ] Cross-cultural validation of level norms
 - [x] Autonomy contract + review agenda template (`docs/contract-template.md`)
-- [ ] Printable assessment pack (one-pager + rubric)
+- [x] Printable assessment pack (one-pager + rubric) — the site's print
+      output plus the rubric in `docs/contract-template.md`
 
 ## How to help
 

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autonomy Self-Assessment — Measuring &amp; Managing Autonomy</title>
+<style>
+  :root { --ink:#1f2933; --mut:#5b6b79; --line:#d9e2ec; --bg:#f5f7fa; --ok:#0b7a5c; --warn:#b53d00; --brand:#1f4e79; }
+  * { box-sizing:border-box; }
+  body { font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; color:var(--ink); background:var(--bg); margin:0; padding:1rem; }
+  main { max-width:56rem; margin:0 auto; }
+  h1 { color:var(--brand); margin-bottom:.2rem; }
+  .lede { color:var(--mut); margin-top:0; }
+  fieldset { background:#fff; border:1px solid var(--line); border-radius:.5rem; margin:1rem 0; padding:1rem; }
+  legend { font-weight:600; color:var(--brand); padding:0 .4rem; }
+  .q { display:flex; gap:.6rem; align-items:flex-start; padding:.45rem 0; border-bottom:1px dashed var(--line); }
+  .q:last-child { border-bottom:none; }
+  .lvl { flex:0 0 4.4rem; font-size:.78rem; font-weight:700; color:var(--mut); padding-top:.2rem; }
+  label { cursor:pointer; }
+  textarea, input, select { font:inherit; }
+  .meta { display:flex; flex-wrap:wrap; gap:1rem; margin:1rem 0; }
+  .meta label { display:flex; flex-direction:column; gap:.2rem; font-size:.85rem; color:var(--mut); }
+  #result { background:#fff; border:1px solid var(--line); border-radius:.5rem; padding:1rem; margin:1rem 0; }
+  table { border-collapse:collapse; width:100%; margin:.5rem 0; }
+  th,td { border:1px solid var(--line); padding:.35rem .55rem; text-align:left; font-size:.92rem; }
+  th { background:var(--bg); }
+  .big { font-size:1.35rem; font-weight:700; color:var(--brand); }
+  .move { font-weight:600; }
+  .note { color:var(--mut); font-size:.9rem; }
+  .ok { color:var(--ok); } .warn { color:var(--warn); }
+  .actions { display:flex; gap:.6rem; flex-wrap:wrap; margin:1rem 0; }
+  button { font:inherit; padding:.5rem 1rem; border-radius:.4rem; border:1px solid var(--brand); background:var(--brand); color:#fff; cursor:pointer; }
+  button.ghost { background:#fff; color:var(--brand); }
+  a { color:var(--brand); }
+  footer { color:var(--mut); font-size:.85rem; margin:2rem 0; }
+  @media print {
+    body { background:#fff; padding:0; }
+    fieldset, .actions { display:none; }
+    #result { border:none; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Autonomy Self-Assessment</h1>
+  <p class="lede">Measuring &amp; Managing Autonomy framework — per-domain assessment.
+  Answer each item honestly, with evidence. Uncheckable items cap the level.
+  Full method: <a href="https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/assessment.md">docs/assessment.md</a>.</p>
+
+  <div class="meta">
+    <label>Unit (team / service / agent)<input id="m-unit" placeholder="e.g. payments-team"></label>
+    <label>Domain assessed<input id="m-domain" placeholder="e.g. production-deploys"></label>
+    <label>Currently granted level
+      <select id="m-current">
+        <option value="">None / unknown (shadow autonomy)</option>
+        <option value="0">L0 — Ask</option>
+        <option value="1">L1 — Inform-after</option>
+        <option value="2">L2 — Guardrailed</option>
+        <option value="3">L3 — Supervised</option>
+        <option value="4">L4 — Accountable</option>
+      </select>
+    </label>
+    <label>Review date<input id="m-date" type="date"></label>
+  </div>
+
+  <form id="quiz"></form>
+
+  <div class="actions">
+    <button id="score" type="button">Score assessment</button>
+    <button id="print" type="button" class="ghost">Print scorecard</button>
+    <button id="reset" type="button" class="ghost">Reset</button>
+  </div>
+
+  <section id="result" hidden></section>
+
+  <footer>
+    Scores L0–L4 per the framework. Safe grant level = min(guardrails, telemetry,
+    accountability) — the weakest-link rule. Evidence or it didn’t happen: scores of
+    L2+ should be backed by links, logs or artifacts.
+  </footer>
+</main>
+
+<script src="scoring.js"></script>
+<script>
+(function () {
+  "use strict";
+  var A = window.Autonomy;
+  var quiz = document.getElementById("quiz");
+  var result = document.getElementById("result");
+
+  document.getElementById("m-date").value = new Date().toISOString().slice(0, 10);
+
+  A.DIMENSIONS.forEach(function (dim) {
+    var fs = document.createElement("fieldset");
+    var lg = document.createElement("legend");
+    lg.textContent = dim.code + " — " + dim.name;
+    fs.appendChild(lg);
+    for (var lvl = 1; lvl <= 4; lvl++) {
+      var row = document.createElement("div");
+      row.className = "q";
+      var tag = document.createElement("span");
+      tag.className = "lvl";
+      tag.textContent = "L" + lvl + " item";
+      var lab = document.createElement("label");
+      lab.style.flex = "1";
+      var cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.id = dim.code + "-" + lvl;
+      var txt = document.createElement("span");
+      txt.textContent = " " + A.QUESTIONS[dim.code][lvl];
+      lab.appendChild(cb);
+      lab.appendChild(txt);
+      row.appendChild(tag);
+      row.appendChild(lab);
+      fs.appendChild(row);
+    }
+    quiz.appendChild(fs);
+  });
+
+  function readScores() {
+    var scores = {};
+    A.DIMENSIONS.forEach(function (dim) {
+      var answers = {};
+      for (var lvl = 1; lvl <= 4; lvl++) {
+        answers[lvl] = document.getElementById(dim.code + "-" + lvl).checked;
+      }
+      scores[dim.code] = A.scoreDimension(dim.code, answers);
+    });
+    return scores;
+  }
+
+  function render(scores, current, unit, domain, date) {
+    var res = A.assess(scores, current);
+    var heading = unit || domain
+      ? ((unit || "—") + " / " + (domain || "—") + " — " + date)
+      : date;
+    var html = "<h2>Scorecard — " + escapeHtml(heading) + "</h2>";
+    html += "<table><tr><th>Dimension</th><th>Score</th><th>Level</th></tr>";
+    A.DIMENSIONS.forEach(function (dim) {
+      var s = scores[dim.code];
+      var weak = A.WEAKEST_LINK.indexOf(dim.code) >= 0;
+      html += "<tr><td>" + dim.code + " " + dim.name +
+        (weak ? " <span class='note'>(safety)</span>" : " <span class='note'>(coaching)</span>") +
+        "</td><td>L" + s + "</td><td>" + A.LEVEL_NAMES[s] + "</td></tr>";
+    });
+    html += "</table>";
+    html += "<p class='big'>Safe grant level: L" + res.safeGrantLevel + " — " +
+      A.LEVEL_NAMES[res.safeGrantLevel] + "</p>";
+    if (res.grantedLevel !== null) {
+      html += "<p>Currently granted level: L" + res.grantedLevel + "</p>";
+    }
+    html += "<p class='move'>Recommended move: " + escapeHtml(res.recommendedMove) + "</p>";
+    res.notes.forEach(function (n) { html += "<p class='note'>" + escapeHtml(n) + "</p>"; });
+    html += "<p class='note'>File this scorecard with the autonomy contract; set the next horizon at the review cadence.</p>";
+    result.innerHTML = html;
+    result.hidden = false;
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c];
+    });
+  }
+
+  document.getElementById("score").addEventListener("click", function () {
+    var currentSel = document.getElementById("m-current").value;
+    var current = currentSel === "" ? null : parseInt(currentSel, 10);
+    render(
+      readScores(),
+      current,
+      document.getElementById("m-unit").value.trim(),
+      document.getElementById("m-domain").value.trim(),
+      document.getElementById("m-date").value
+    );
+  });
+  document.getElementById("print").addEventListener("click", function () { window.print(); });
+  document.getElementById("reset").addEventListener("click", function () {
+    document.querySelectorAll("#quiz input[type=checkbox]").forEach(function (cb) { cb.checked = false; });
+    result.hidden = true;
+  });
+})();
+</script>
+</body>
+</html>
