@@ -23,6 +23,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import re
 import sys
 
 DIMENSIONS = [
@@ -36,6 +38,12 @@ DIMENSIONS = [
 
 WEAKEST_LINK = ("D3", "D4", "D6")  # guardrails, telemetry, accountability
 CLEAN_CYCLES_TO_EXPAND = 2  # consecutive clean reviews required to expand
+
+# Semantic version of the scoring ruleset. See docs/versioning.md.
+# MAJOR = re-scoring (scores not comparable); MINOR = additive/clarification;
+# PATCH = no change to scored outputs. Kept identical to site/scoring.js;
+# parity is asserted by tools/site_selftest.js.
+RULESET_VERSION = "1.0.0"
 
 
 def parse_scores(values: list[str]) -> dict[str, int]:
@@ -108,6 +116,7 @@ def recommended_move(scores: dict[str, int], current: int | None) -> str:
 
 def assess(scores: dict[str, int], current: int | None) -> dict:
     return {
+        "ruleset_version": RULESET_VERSION,
         "scores": {code: scores[code] for code, _ in DIMENSIONS},
         "safe_grant_level": safe_level(scores),
         "granted_level": current,
@@ -118,6 +127,7 @@ def assess(scores: dict[str, int], current: int | None) -> dict:
 
 def render(result: dict) -> str:
     lines = ["Autonomy assessment", "=" * 40]
+    lines.append(f"Ruleset version: {RULESET_VERSION}")
     for (code, name) in DIMENSIONS:
         lines.append(f"{code} ({name}): {result['scores'][code]}")
     lines += ["", f"Safe grant level (min D3,D4,D6): L{result['safe_grant_level']}"]
@@ -130,6 +140,16 @@ def render(result: dict) -> str:
 
 
 def _self_test() -> None:
+    # Version stamp present in outputs, and identical to the JS engine
+    # (parity: docs/versioning.md makes cross-implementation drift a blocker)
+    assert RULESET_VERSION == "1.0.0"
+    assert assess({d: 1 for d, _ in DIMENSIONS}, None)["ruleset_version"] == RULESET_VERSION
+    with open(
+        os.path.join(os.path.dirname(__file__), "..", "site", "scoring.js"), encoding="utf-8"
+    ) as _fh:
+        _js = _fh.read()
+    _m = re.search(r'RULESET_VERSION\s*=\s*"([^"]+)"', _js)
+    assert _m and _m.group(1) == RULESET_VERSION, f"version drift: py={RULESET_VERSION} js={_m and _m.group(1)}"
     # Weakest-link rule
     assert safe_level({d: 4 for d, _ in DIMENSIONS}) == 4
     assert safe_level({"D3": 2, "D4": 3, "D6": 1, "D1": 4, "D2": 4, "D5": 4}) == 1

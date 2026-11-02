@@ -34,10 +34,12 @@
 - [x] CI: run the tool's self-test on every push — pulled forward into v0.1
 - [ ] Case studies from 2+ different industries
 
-## v1.0 — Stability
+## v1.0 — Stability (current)
 
-- [ ] Frozen level definitions and scoring rules; semantic versioning of the
+- [x] Frozen level definitions and scoring rules; semantic versioning of the
       maturity model so assessments stay comparable over time
+      (`docs/versioning.md`, `RULESET_VERSION = 1.0.0` in both engines,
+      parity-tested; `CHANGELOG.md` tracks every bump)
 - [ ] Cross-cultural validation of level norms
 - [x] Autonomy contract + review agenda template (`docs/contract-template.md`)
 - [x] Printable assessment pack (one-pager + rubric) — the site's print

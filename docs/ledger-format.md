@@ -18,6 +18,10 @@ Ledger health (coverage and staleness) is an org-level metric; the tool
 `examples/ledger.yaml` is the reference ledger, seeded from the
 [worked example](../examples/README.md). Copy it as your starting point.
 
+The file declares its format version with a top-level `schema: 1`. A missing
+`schema:` field is treated as `1` (backward compatibility); newer schemas are
+flagged but still validated — see [versioning](versioning.md).
+
 ## Schema
 
 One YAML file, top-level key `contracts`, a list of autonomy contracts:

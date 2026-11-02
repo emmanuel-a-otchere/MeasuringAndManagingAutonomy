@@ -135,6 +135,8 @@
       ? ((unit || "—") + " / " + (domain || "—") + " — " + date)
       : date;
     var html = "<h2>Scorecard — " + escapeHtml(heading) + "</h2>";
+    html += "<p class='note'>Ruleset version: " + A.RULESET_VERSION +
+      " (record this with the scorecard — see docs/versioning.md)</p>";
     html += "<table><tr><th>Dimension</th><th>Score</th><th>Level</th></tr>";
     A.DIMENSIONS.forEach(function (dim) {
       var s = scores[dim.code];
