@@ -34,6 +34,24 @@ flowchart LR
 | [Versioning](docs/versioning.md) | Ruleset/ledger versioning policy — how assessments stay comparable |
 | [Changelog](CHANGELOG.md) | Every change, classified by comparability impact |
 
+## Install
+
+**No Python needed** — standalone binaries for macOS, Linux, and Windows are
+attached to each [GitHub Release](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/releases):
+download `autonomy-score-<os>-<arch>` and `ledger-health-<os>-<arch>`, mark
+them executable, run.
+
+**With Python 3.9+** (installs the `autonomy-score` and `ledger-health`
+commands):
+
+```bash
+pipx install measuring-autonomy    # or: pip install measuring-autonomy
+```
+
+**From a clone**, the zero-install form keeps working with no packaging step:
+`python3 tools/autonomy_score.py ...` (the `tools/` scripts are shims over
+`src/measuring_autonomy/`).
+
 ## Quick start: score a team
 
 ```bash

@@ -8,6 +8,30 @@ ruleset** (`RULESET_VERSION`, e.g. `1.0.0`) and the **ledger format**
 
 ## Unreleased
 
+## v1.1.0 — 2026-11-03
+
+Toolkit release: the framework tools are now installable and distributable.
+
+### Tooling
+
+- Packaging: `measuring-autonomy` installs with `autonomy-score` and
+  `ledger-health` console commands (`src/` layout; the `tools/` scripts
+  remain as zero-install shims over the package)
+- Release pipeline: pushing a `v*` tag builds the wheel + sdist and
+  standalone one-file binaries (macOS arm64, Linux x86_64, Windows x86_64),
+  gates every artifact on its `--self-test` and a CLI smoke, then publishes
+  a GitHub Release with notes taken from this changelog (`RELEASE.md`)
+- Optional PyPI publishing workflow (`publish-pypi.yml`, manual dispatch,
+  requires one-time trusted-publisher setup)
+- CI: install PyYAML for the ledger tooling — the runner's toolcache Python
+  does not bundle it, which had left every CI run red (PR #6)
+- Pages: the deploy workflow enables GitHub Pages itself; the assessment
+  site is live at https://emmanuel-a-otchere.github.io/MeasuringAndManagingAutonomy/
+
+### Scoring semantics
+
+None — `RULESET_VERSION` stays 1.0.0; no scored output changed.
+
 ## v1.0.0 — 2025-10-29
 
 First versioned release. Scoring semantics frozen; comparability policy in
