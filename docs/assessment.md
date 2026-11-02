@@ -24,7 +24,9 @@
 4. Record evidence (links, logs, dashboards) for any score ≥ L2. Scores
    without evidence drop one level.
 5. Use [`tools/autonomy_score.py`](../tools/autonomy_score.py) to aggregate
-   and apply the scoring rules.
+   and apply the scoring rules — or the dependency-free web version in
+   [`site/`](../site/) (published on GitHub Pages), which walks the same
+   questionnaire and prints a scorecard.
 
 ## 3. The questionnaire
 

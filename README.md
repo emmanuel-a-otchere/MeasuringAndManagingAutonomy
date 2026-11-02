@@ -54,6 +54,13 @@ format, [`examples/ledger.yaml`](examples/ledger.yaml)) and check its health:
 python3 tools/ledger_health.py examples/ledger.yaml
 ```
 
+## Try it without a terminal
+
+A dependency-free web version of the assessment lives in [`site/`](site/)
+(and is published to GitHub Pages when enabled — repo **Settings → Pages →
+Source: GitHub Actions**). Open `site/index.html` locally, tick the items
+with evidence, and print the scorecard.
+
 ## The three questions
 
 1. **Design** — What autonomy should this unit have, and why? →

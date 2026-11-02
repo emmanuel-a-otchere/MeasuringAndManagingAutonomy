@@ -37,6 +37,27 @@ jobs:
       - name: Validate reference ledger
         run: python3 tools/ledger_health.py examples/ledger.yaml --today 2025-10-01
 
+  site:
+    name: Static site self-assessment
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run scoring.js self-test
+        run: node tools/site_selftest.js
+
+      - name: Sanity-check site files
+        run: |
+          test -f site/index.html && test -f site/scoring.js
+          grep -q 'id="score"' site/index.html
+          grep -q 'weakest-link' site/index.html
+          echo "site check: OK"
+
   docs:
     name: Docs consistency
     runs-on: ubuntu-latest
