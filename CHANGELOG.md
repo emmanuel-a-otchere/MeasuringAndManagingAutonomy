@@ -8,6 +8,44 @@ ruleset** (`RULESET_VERSION`, e.g. `1.0.0`) and the **ledger format**
 
 ## Unreleased
 
+## v2.0.1 — 2026-11-04
+
+Establishment release (CR MAMA-AUT-CR-001, Phase 0). No scoring changes —
+`RULESET_VERSION` stays 2.0.0.
+
+### License (corrective)
+
+- The LICENSE **file** was BSD-3-Clause (© 2022) while every doc and the
+  package metadata said MIT — a contradiction present since the original
+  import. The intended license is **MIT**: the LICENSE file now carries the
+  MIT text, and repository metadata, README, package, and distribution
+  artifacts are reconciled. Prior distributions (v1.x–v2.0.0) shipped the
+  BSD-3 file with MIT-claiming metadata; treat MIT as intended and
+  re-download current artifacts where the distinction matters.
+
+### Identity
+
+- Naming established: **`mama`** (lowercase) = measuring and managing
+  autonomy, this method and toolkit (canonical home: this repository);
+  **MAMA** (uppercase) = Measuring Automation & Measuring Autonomy, the
+  umbrella framework that uses `mama`. Naming box added to README and the
+  assessment site; integration guide published
+  (`docs/mama-integration.md`).
+
+### Method governance & documentation
+
+- `GOVERNANCE.md` (stewardship roles, decision rights, appeals, COI) and
+  `SECURITY.md` (private vulnerability reporting)
+- `docs/handbook.md` — the end-to-end operating guide
+- `docs/migration-v1-to-v2.md` — re-baselining guide + historical-score
+  policy (supersedes reading migration only from the changelog)
+- `docs/limitations.md` + `docs/validation-plan.md` — the method is
+  labeled **pilot / under validation** until the validation program
+  reports
+- README: current status (was stale "v0.1 draft"), intended users, offline
+  use, links to all governance artifacts; roadmap reconciled with a v2.1
+  establishment section
+
 ## v2.0.0 — 2026-11-03
 
 **MAJOR — re-baseline required.** The level scale changed; assessments and
