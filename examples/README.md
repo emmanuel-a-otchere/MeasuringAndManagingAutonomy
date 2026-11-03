@@ -78,5 +78,21 @@ move is **hold**, with D6 named as the dimension to watch.
    explicit triggers, and a re-raise path made expansion a routine decision
    rather than a political one.
 
+## How MAMA consumes this example
+
+A consuming **MAMA** project (*Measuring Automation & Measuring Autonomy* —
+the umbrella framework) links its use-case record to these `mama` artifacts
+by stable identifiers: `use_case_id` ↔ unit `payments-team`, domain
+`production-deploys`, contract `payments-deploys-v2`, and the scorecard with
+its `ruleset_version` ([export format](../docs/export-format.md)); the
+ledger entry is the contract record. MAMA then plots this use case's
+automation measures — eligible-work coverage, successful-completion and
+exception rates, deploy latency and recovery — **beside** the autonomy
+measures, never blended into one score. The descriptive question MAMA can
+then answer: *did the L3 guardrailed grant (with drilled auto-rollback)
+coincide with better exception and recovery numbers for the same use case?*
+— a joining of two separate instruments, per the
+[integration guide](../docs/mama-integration.md#keep-the-measures-separate).
+
 Try scoring your own team with
 [`tools/autonomy_score.py`](../tools/autonomy_score.py).

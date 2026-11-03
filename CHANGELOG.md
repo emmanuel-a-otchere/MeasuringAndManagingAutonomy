@@ -8,6 +8,30 @@ ruleset** (`RULESET_VERSION`, e.g. `1.0.0`) and the **ledger format**
 
 ## Unreleased
 
+## v2.1.0 — 2026-11-04
+
+Establishment follow-through (CR MAMA-AUT-CR-001, Phases 2 & 4). Additive
+only — no scoring changes; `RULESET_VERSION` stays 2.0.0.
+
+### Added
+
+- Crosswalks (`docs/crosswalks.md`): relation to TM Forum's same-named MAMA
+  programme stated as independent and unaffiliated, with the TM Forum
+  reference policy (GB1040 / GB1042A / IG1301 only; no IG1403 or
+  Autonomous Networks / ANLET content); coverage-and-gaps mappings to NIST
+  AI RMF 1.0, ISO/IEC 42001:2023, ISO/IEC 23894:2023, OECD AI Principles,
+  OWASP GenAI Top 10, and MITRE ATLAS — no equivalence claims
+- Shared scoring corpus (`tests/corpus.json`, 9 cases + invalid inputs)
+  with per-engine checkers (`tools/corpus_check.py` / `corpus_check.js`)
+  enforced in CI — the Python and JavaScript engines cannot drift silently
+- Machine-readable scorecard export: `docs/export-format.md` +
+  `schema/mama-scorecard-export.schema.json` (JSON Schema draft 2020-12)
+- `docs/facilitator-guide.md` — running assessment sessions
+- `docs/training.md` — self-guided ~60-minute training module
+- MAMA-consumption sections in both worked examples: how a consuming MAMA
+  project links use-case records and joins automation/value measures
+  beside — never blended with — autonomy measures
+
 ## v2.0.1 — 2026-11-04
 
 Establishment release (CR MAMA-AUT-CR-001, Phase 0). No scoring changes —

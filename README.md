@@ -47,6 +47,7 @@ flowchart LR
 |---|---|
 | [Method handbook](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/handbook.md) | The end-to-end operating guide — start here |
 | [Facilitator guide](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/facilitator-guide.md) | How to run an assessment session so the numbers mean something |
+| [Training module](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/training.md) | Self-guided ~60-minute walkthrough with exercises |
 | [Crosswalks](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/crosswalks.md) | `mama` vs TM Forum MAMA, NIST AI RMF, ISO/IEC 42001 & 23894, OECD, OWASP GenAI, MITRE ATLAS — coverage and gaps |
 | [Export format](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/export-format.md) | Machine-readable scorecard export for consumers (JSON Schema included) |
 | [Framework](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/framework.md) | Definitions, the three axes, definitive levels L1–L5 above the Submarine Line (L0), autonomy contracts |
