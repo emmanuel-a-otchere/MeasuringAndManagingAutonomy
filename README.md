@@ -23,17 +23,17 @@ flowchart LR
 
 | Document | Purpose |
 |---|---|
-| [Framework](docs/framework.md) | Definitions, the three axes, the five levels (L0–L4), autonomy contracts |
-| [Maturity model](docs/maturity-model.md) | Six dimensions × five levels grid, scoring rules, the Autonomy Ledger |
-| [Assessment](docs/assessment.md) | The questionnaire and scoring procedure — the practical instrument |
-| [Governance loop](docs/governance-loop.md) | Grant → Instrument → Observe → Review, with cadence and anti-patterns |
-| [Positioning](docs/positioning.md) | Related work, lineage, open questions, BibTeX |
-| [Worked example](examples/README.md) | One team, scored end to end, producing a governance move |
-| [AI agents as units](docs/agents-as-units.md) | First-pass extension: scoring agent units with the same instrument |
-| [Ledger format](docs/ledger-format.md) | Machine-readable Autonomy Ledger (YAML v1) + health checks |
-| [Contract template](docs/contract-template.md) | Autonomy contract + review agenda, ready to copy |
-| [Versioning](docs/versioning.md) | Ruleset/ledger versioning policy — how assessments stay comparable |
-| [Changelog](CHANGELOG.md) | Every change, classified by comparability impact |
+| [Framework](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/framework.md) | Definitions, the three axes, the five levels (L0–L4), autonomy contracts |
+| [Maturity model](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/maturity-model.md) | Six dimensions × five levels grid, scoring rules, the Autonomy Ledger |
+| [Assessment](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/assessment.md) | The questionnaire and scoring procedure — the practical instrument |
+| [Governance loop](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/governance-loop.md) | Grant → Instrument → Observe → Review, with cadence and anti-patterns |
+| [Positioning](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/positioning.md) | Related work, lineage, open questions, BibTeX |
+| [Worked example](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/examples/README.md) | One team, scored end to end, producing a governance move |
+| [AI agents as units](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/agents-as-units.md) | First-pass extension: scoring agent units with the same instrument |
+| [Ledger format](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/ledger-format.md) | Machine-readable Autonomy Ledger (YAML v1) + health checks |
+| [Contract template](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/contract-template.md) | Autonomy contract + review agenda, ready to copy |
+| [Versioning](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/versioning.md) | Ruleset/ledger versioning policy — how assessments stay comparable |
+| [Changelog](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/CHANGELOG.md) | Every change, classified by comparability impact |
 
 ## Install
 
@@ -69,7 +69,7 @@ python3 tools/autonomy_score.py --self-test   # verify the scoring rules
 ```
 
 Track granted autonomy in a machine-readable **Autonomy Ledger** (v1 YAML
-format, [`examples/ledger.yaml`](examples/ledger.yaml)) and check its health:
+format, [`examples/ledger.yaml`](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/examples/ledger.yaml)) and check its health:
 
 ```bash
 python3 tools/ledger_health.py examples/ledger.yaml   # requires PyYAML (pip install pyyaml)
@@ -77,7 +77,7 @@ python3 tools/ledger_health.py examples/ledger.yaml   # requires PyYAML (pip ins
 
 ## Try it without a terminal
 
-A dependency-free web version of the assessment lives in [`site/`](site/)
+A dependency-free web version of the assessment lives in [`site/`](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/tree/main/site/)
 (and is published to GitHub Pages when enabled — repo **Settings → Pages →
 Source: GitHub Actions**). Open `site/index.html` locally, tick the items
 with evidence, and print the scorecard.
@@ -85,24 +85,24 @@ with evidence, and print the scorecard.
 ## The three questions
 
 1. **Design** — What autonomy should this unit have, and why? →
-   [contracts](docs/framework.md#5-autonomy-contracts)
+   [contracts](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/framework.md#5-autonomy-contracts)
 2. **Measurement** — How much autonomy exists, and how well is it used? →
-   [maturity model](docs/maturity-model.md) + [assessment](docs/assessment.md)
+   [maturity model](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/maturity-model.md) + [assessment](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/assessment.md)
 3. **Management** — When should autonomy expand, contract, or re-shape? →
-   [governance loop](docs/governance-loop.md)
+   [governance loop](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/governance-loop.md)
 
 ## Roadmap
 
-See [docs/roadmap.md](docs/roadmap.md). Current status: **v0.1 draft** — the
+See [docs/roadmap.md](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/roadmap.md). Current status: **v0.1 draft** — the
 written framework, maturity model, and assessment instrument are complete;
 next up are validation against real teams and optional tooling.
 
 ## Contributing
 
 Feedback, corrections, and real-world applications are very welcome — see
-[CONTRIBUTING.md](CONTRIBUTING.md). Use the issue templates to report
+[CONTRIBUTING.md](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/CONTRIBUTING.md). Use the issue templates to report
 framework feedback or submit a case study.
 
 ## License
 
-[MIT](LICENSE)
+[MIT](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/LICENSE)
