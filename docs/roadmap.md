@@ -22,7 +22,9 @@
       rule predicted outcomes (breaches, over/under-grants)
 - [ ] Revise dimension definitions and questionnaire items based on findings
 - [ ] Preserve the original 2022 concept diagram in docs/img/ for lineage
-- [ ] AI agents as units: first-pass extension of the framework
+- [x] AI agents as units: first-pass extension of the framework
+      (`docs/agents-as-units.md`, `examples/agents-ledger.yaml`; scoring
+      engines unchanged, `RULESET_VERSION` stays 1.0.0)
 
 ## v0.3 — Tooling & reach
 

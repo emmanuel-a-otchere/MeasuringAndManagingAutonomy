@@ -162,4 +162,5 @@ preserved as `docs/img/original-diagram.png` if provided; see
 - [Assessment](assessment.md) — the questionnaire and scoring procedure
 - [Governance Loop](governance-loop.md) — the operating procedure
 - [Positioning](positioning.md) — related work and sources
+- [AI agents as units](agents-as-units.md) — applying this framework to agent units
 - [Worked example](../examples/README.md) — one team, scored end to end

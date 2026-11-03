@@ -29,6 +29,7 @@ flowchart LR
 | [Governance loop](docs/governance-loop.md) | Grant → Instrument → Observe → Review, with cadence and anti-patterns |
 | [Positioning](docs/positioning.md) | Related work, lineage, open questions, BibTeX |
 | [Worked example](examples/README.md) | One team, scored end to end, producing a governance move |
+| [AI agents as units](docs/agents-as-units.md) | First-pass extension: scoring agent units with the same instrument |
 | [Ledger format](docs/ledger-format.md) | Machine-readable Autonomy Ledger (YAML v1) + health checks |
 | [Contract template](docs/contract-template.md) | Autonomy contract + review agenda, ready to copy |
 | [Versioning](docs/versioning.md) | Ruleset/ledger versioning policy — how assessments stay comparable |
