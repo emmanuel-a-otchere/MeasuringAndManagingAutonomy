@@ -32,6 +32,9 @@ jobs:
       - name: Run ledger_health self-test
         run: python3 tools/ledger_health.py --self-test
 
+      - name: Shared scoring corpus (Python engine)
+        run: python3 tools/corpus_check.py
+
       - name: Smoke-test CLI output
         run: |
           python3 tools/autonomy_score.py 2 4 3 3 2 2 --current 2
@@ -55,6 +58,9 @@ jobs:
 
       - name: Run scoring.js self-test
         run: node tools/site_selftest.js
+
+      - name: Shared scoring corpus (JavaScript engine)
+        run: node tools/corpus_check.js
 
       - name: Sanity-check site files
         run: |

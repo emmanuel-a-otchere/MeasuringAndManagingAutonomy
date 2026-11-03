@@ -73,14 +73,17 @@
 - [x] Governance: stewardship roles and decision rights (`GOVERNANCE.md`);
       security reporting (`SECURITY.md`); method labeled **pilot / under
       validation** until the validation program reports
-- [ ] Crosswalks: NIST AI RMF, ISO/IEC 42001 & 23894, OECD principles,
-      OWASP GenAI, MITRE ATLAS — coverage and gaps, no equivalence claims
-      (extend `docs/positioning.md`)
-- [ ] Shared versioned test corpus consumed by every scoring
-      implementation (Python, JS engine, site)
-- [ ] Machine-readable export specification for MAMA consumption
-      (formalize the `--json`/ledger payload)
-- [ ] Facilitator materials and short training (Phase 4)
+- [x] Crosswalks: TM Forum MAMA (same name, independent work — stated),
+      NIST AI RMF, ISO/IEC 42001 & 23894, OECD principles, OWASP GenAI,
+      MITRE ATLAS — coverage and gaps, no equivalence claims
+      (`docs/crosswalks.md`)
+- [x] Shared versioned test corpus consumed by every scoring
+      implementation (`tests/corpus.json` + `tools/corpus_check.py` /
+      `corpus_check.js`; CI blocks drift)
+- [x] Machine-readable export specification for MAMA consumption
+      (`docs/export-format.md` + `schema/mama-scorecard-export.schema.json`)
+- [x] Facilitator guide for assessment sessions (`docs/facilitator-guide.md`)
+- [ ] Short training module / walkthrough recording (Phase 4)
 
 ## How to help
 

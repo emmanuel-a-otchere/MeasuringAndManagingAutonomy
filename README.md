@@ -46,6 +46,9 @@ flowchart LR
 | Document | Purpose |
 |---|---|
 | [Method handbook](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/handbook.md) | The end-to-end operating guide — start here |
+| [Facilitator guide](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/facilitator-guide.md) | How to run an assessment session so the numbers mean something |
+| [Crosswalks](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/crosswalks.md) | `mama` vs TM Forum MAMA, NIST AI RMF, ISO/IEC 42001 & 23894, OECD, OWASP GenAI, MITRE ATLAS — coverage and gaps |
+| [Export format](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/export-format.md) | Machine-readable scorecard export for consumers (JSON Schema included) |
 | [Framework](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/framework.md) | Definitions, the three axes, definitive levels L1–L5 above the Submarine Line (L0), autonomy contracts |
 | [Maturity model](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/maturity-model.md) | Six dimensions × level grid, scoring rules, the Autonomy Ledger |
 | [Assessment](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/assessment.md) | The questionnaire and scoring procedure — the practical instrument |
