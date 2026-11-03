@@ -13,6 +13,8 @@ organizational use.
 
 | Source | What this framework takes from it |
 |---|---|
+| **The original 2022 concept diagram** — *Measuring Autonomy Based on 3-Axis of Freedom* ([archived](img/README.md)) | The founding idea: autonomy as a position across three dimensions (self-governance, adaptability, automation), later redesigned into the current [scope/level/horizon axes](framework.md#3-the-three-axes-of-autonomy) and from *measurement* into *management* |
+|---|---|
 | **Deere & Kramer (1995), *Levels of Autonomy* (NRL formal report)* | The explicit ladder of autonomy levels for supervised systems; the idea that levels are a design choice, not a mood |
 | **Levels of driving automation (SAE J3016)** | The discipline of level definitions tied to responsibility; the popularity proof that ladders make autonomy negotiable |
 | **Sheridan & Verplanck; Parasuraman, Sheridan & Wickens (2000), *A Model for Types and Levels of Human Interaction with Automation*** | Separation of *decision scope* from *monitoring intensity* — the ancestor of the scope/level axis split |

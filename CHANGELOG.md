@@ -8,6 +8,12 @@ ruleset** (`RULESET_VERSION`, e.g. `1.0.0`) and the **ledger format**
 
 ## Unreleased
 
+- Archived the original 2022 concept diagram ("Measuring Autonomy Based on
+  3-Axis of Freedom") in `docs/img/` with provenance and a mapping of its
+  2022 axes (self-governance, adaptability, automation) to the current
+  scope/level/horizon axes. Closes the last v0.2 lineage item. Documentation
+  only — no scoring or schema change.
+
 ## v1.1.0 — 2026-11-03
 
 Toolkit release: the framework tools are now installable and distributable.

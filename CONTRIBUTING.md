@@ -48,6 +48,7 @@ for the research-friendly gaps.
 
 ## Original diagram
 
-If you have a copy of the original 2022 concept diagram (the
-`user-images.githubusercontent.com` PNG from the old README), please open a PR
-adding it under `docs/img/original-diagram.png` so the lineage is preserved.
+The original 2022 concept diagram is archived at
+[`docs/img/`](docs/img/README.md) with its mapping to the current framework
+axes. If you have higher-resolution or earlier variants, a PR adding them
+alongside is welcome.
