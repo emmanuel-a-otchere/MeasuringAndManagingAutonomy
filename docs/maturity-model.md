@@ -16,7 +16,7 @@ The maturity model serves two distinct measurement jobs:
 ## 2. The six dimensions
 
 Each dimension is scored 0–5: the definitive autonomy levels **L1–L5** from
-the [framework](framework.md#4-the-five-levels-of-autonomy), with **L0 — the
+the [framework](framework.md#4-the-five-levels-of-autonomy-and-the-submarine-line), with **L0 — the
 Submarine Line — reserved for no autonomy at all** (the unit holds nothing in
 this domain: no decision rights, not even analysis standing). A unit's
 maturity profile is the vector of its six scores.

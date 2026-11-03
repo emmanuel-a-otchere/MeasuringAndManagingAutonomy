@@ -49,13 +49,13 @@ release, external communication…), over what objects, affecting which parties.
 
 ### Axis 2 — Level
 *How far* the unit may go within a scope, without asking anyone. See
-[§4 Levels](#4-the-five-levels-of-autonomy).
+[§4 Levels](#4-the-five-levels-of-autonomy-and-the-submarine-line).
 
 ### Axis 3 — Horizon
 *When* the unit's authority expires or is reviewed. Autonomy is always
 time-boxed and re-grantable, never permanent or implicit.
 
-## 4. The five levels of autonomy
+## 4. The five levels of autonomy (and the Submarine Line)
 
 Adapting the delegation ladder common in safety-critical systems to business
 settings. The **definitive levels are L1–L5**; **L0 is the Submarine Line** —

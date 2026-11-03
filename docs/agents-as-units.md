@@ -3,7 +3,7 @@
 > **Status:** v0.2 draft (first pass, per the
 > [roadmap](roadmap.md)). This document applies the existing framework —
 > the [three axes](framework.md#3-the-three-axes-of-autonomy), the
-> [five levels](framework.md#4-the-five-levels-of-autonomy), the
+> [five levels](framework.md#4-the-five-levels-of-autonomy-and-the-submarine-line), the
 > [six dimensions](maturity-model.md#2-the-six-dimensions), and the
 > [weakest-link rule](maturity-model.md#scoring-rules) — to AI agent units.
 > **The scoring engines and `RULESET_VERSION` are unchanged**: an agent is

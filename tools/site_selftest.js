@@ -56,7 +56,7 @@ const hold = A.assess({ D1: 4, D2: 4, D3: 4, D4: 4, D5: 4, D6: 4 }, 4);
 check("stable at level = hold", hold.recommendedMove.startsWith("hold: stable"));
 
 // parity with the Python tool on the worked example
-// (python3 tools/autonomy_score.py 1 3 2 2 1 1 -> safe level 1, formalize)
+// (python3 tools/autonomy_score.py 2 4 3 3 2 2 -> safe level 2, formalize)
 
 // ruleset versioning (docs/versioning.md): stamp present in every assessment,
 // and identical to the Python implementation -- cross-implementation drift is
