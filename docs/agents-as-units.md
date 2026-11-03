@@ -150,6 +150,16 @@ path, re-review next horizon. A fuller ledger for this example (plus a
 draft-stage docs agent) lives at
 [`examples/agents-ledger.yaml`](../examples/agents-ledger.yaml).
 
+**MAMA view:** a consuming **MAMA** project links `use_case_id` to unit
+`support-refund-agent`, domain `customer-refunds`, contract
+`refund-agent-v2`; exports the scorecard ([export format](export-format.md))
+and plots the use case's support-automation measures — containment rate,
+refund-handling latency, escalation and rework rates — beside the autonomy
+profile. The measures stay separate
+([integration guide](mama-integration.md#keep-the-measures-separate)); the
+descriptive question MAMA answers is whether the L2 → L3 expansion coincided
+with better exception and recovery numbers for the same use case.
+
 ## 8. Open questions
 
 - **The unit boundary for multi-agent systems** — score the swarm or each
