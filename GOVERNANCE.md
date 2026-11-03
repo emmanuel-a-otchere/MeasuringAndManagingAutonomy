@@ -26,6 +26,11 @@ says so when exercising them.
   require a re-baseline plan and mapping table.
 - **Naming and terminology** (`mama` vs. MAMA, Submarine Line, dimension
   names) are steward-approved; propose via issue.
+- **TM Forum reference policy** (steward decision, 2026-11-04, applied
+  retroactively): references to TM Forum assets are limited to **GB1040**,
+  **GB1042A**, and **IG1301**. Other TM Forum assets — including IG1403 and
+  anything building on the Autonomous Networks (AN) / ANLET evaluations —
+  are not referenced in documentation, crosswalks, or communications.
 - **Releases** follow [RELEASE.md](RELEASE.md); every release states shipped
   ruleset/schema versions, breaking changes, migration, and known
   limitations.
