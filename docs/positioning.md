@@ -19,7 +19,7 @@ organizational use.
 | **Delegation theory & management practice** (incl. Tannenbaum & Schmidt's leadership continuum) | Inform-after → pre-approval → full ownership progression for people, and the insight that delegation is a contract, not an event |
 | **Sociotechnical systems & responsibility models** (e.g., STPA, Leveson) | Blast radius and reversibility as first-class design constraints; guardrails as tested mechanisms rather than intentions |
 | **HRM / job-design literature (job characteristics model, empowerment research)** | The measurement of autonomy as experienced practice, and the gap between designed and lived empowerment |
-| **Cloud spend governance (budgets, allow-lists, rate limits)** | Working examples of L2/L3 guardrails in production business settings |
+| **Cloud spend governance (budgets, allow-lists, rate limits)** | Working examples of L3/L4 guardrails in production business settings |
 | **AWS Well-Architected / Google SRE error budgets** | Telemetry-driven accountability; quantitative revocation triggers |
 
 ## What differs from the nearest neighbors

@@ -8,6 +8,54 @@ ruleset** (`RULESET_VERSION`, e.g. `1.0.0`) and the **ledger format**
 
 ## Unreleased
 
+## v2.0.0 — 2026-11-03
+
+**MAJOR — re-baseline required.** The level scale changed; assessments and
+ledgers on the retired scale are **not comparable** with v2 scores.
+
+### Level scale (scoring change, `RULESET_VERSION` 1.0.0 → 2.0.0)
+
+- Definitive autonomy levels are now **L1–L5**; **L0 is the Submarine Line**
+  — no autonomy at all, nothing granted, nothing to review or revoke — kept
+  as the grounding floor beneath the scale.
+- **Mapping from v1.x** (old level *n* → new level *n+1*): v1 L0 Ask → v2 L1;
+  v1 L1 Inform-after → v2 L2; v1 L2 Guardrailed → v2 L3; v1 L3 Supervised →
+  v2 L4; v1 L4 Accountable → v2 L5. Coarse trend comparisons across the
+  re-baseline may use this mapping; formal comparability starts with
+  re-scored v2 baselines.
+- Dimension scores are now 0–5 (was 0–4): a dimension with not even the L1
+  (Ask-arrangement) item true scores 0 — Submarine Line for that dimension.
+- The questionnaire gains an L1 item per dimension describing the Ask
+  arrangement; former items shift up one level label.
+- Weakest-link rule unchanged: `min(D3, D4, D6)`. A safe level of 0 means
+  nothing is grantable yet; the tools now say so explicitly (submarine move).
+
+### Ledger format (`schema` 1 → 2)
+
+- `schema: 2` = the v2 level scale. `ledger_health.py` validates levels 0–5.
+- Schema-1 files still validate but warn: "retired 0–4 scale — re-baseline
+  and set schema: 2". Missing `schema:` field = current supported schema.
+- Reference ledgers (`examples/ledger.yaml`, `examples/agents-ledger.yaml`)
+  re-baselined to schema 2 with levels shifted accordingly.
+
+### Docs & tooling
+
+- All framework docs re-based: levels tables, maturity grid (now six
+  columns), questionnaire, governance-loop thresholds, contract template,
+  worked examples re-scored (payments team: safe L3, hold at L3; refund
+  agent: safe L3, expand from L2).
+- Site (`site/`) and CLI engines updated in lockstep; parity-tested at 2.0.0.
+
+### Migration (v1.x → v2.0.0)
+
+1. Re-score each domain with the v2 questionnaire (`autonomy-score` prints
+   `ruleset_version: 2.0.0`).
+2. Rewrite ledger contracts onto the new scale (mapping above) and set
+   `schema: 2`; version the contract id (`-v<n+1>`) rather than mutating
+   history in place.
+3. Do not compare v1.x scorecards to v2 scorecards directly — use the
+   mapping for coarse trends only.
+
 ## v1.1.1 — 2026-11-03
 
 Metadata only — no code or scoring changes (`RULESET_VERSION` stays 1.0.0).

@@ -23,7 +23,7 @@ flowchart LR
 
 | Document | Purpose |
 |---|---|
-| [Framework](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/framework.md) | Definitions, the three axes, the five levels (L0–L4), autonomy contracts |
+| [Framework](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/framework.md) | Definitions, the three axes, definitive levels L1–L5 above the Submarine Line (L0), autonomy contracts |
 | [Maturity model](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/maturity-model.md) | Six dimensions × five levels grid, scoring rules, the Autonomy Ledger |
 | [Assessment](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/assessment.md) | The questionnaire and scoring procedure — the practical instrument |
 | [Governance loop](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/docs/governance-loop.md) | Grant → Instrument → Observe → Review, with cadence and anti-patterns |
@@ -56,11 +56,12 @@ pipx install measuring-autonomy    # or: pip install measuring-autonomy
 ## Quick start: score a team
 
 ```bash
-python3 tools/autonomy_score.py 1 3 2 2 1 1 --current 1
+python3 tools/autonomy_score.py 2 4 3 3 2 2 --current 2
 ```
 
 Scores are D1 clarity, D2 capability, D3 guardrails, D4 telemetry,
-D5 transparency, D6 accountability (0–4 each). The tool applies the
+D5 transparency, D6 accountability (0–5 each: definitive levels 1–5, and
+0 — the **Submarine Line** — for no autonomy at all). The tool applies the
 weakest-link rule — `min(guardrails, telemetry, accountability)` — and
 outputs the safe grant level and recommended move.
 

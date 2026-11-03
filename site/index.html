@@ -53,11 +53,12 @@
     <label>Currently granted level
       <select id="m-current">
         <option value="">None / unknown (shadow autonomy)</option>
-        <option value="0">L0 — Ask</option>
-        <option value="1">L1 — Inform-after</option>
-        <option value="2">L2 — Guardrailed</option>
-        <option value="3">L3 — Supervised</option>
-        <option value="4">L4 — Accountable</option>
+        <option value="0">L0 — Submarine Line (no autonomy at all)</option>
+        <option value="1">L1 — Ask</option>
+        <option value="2">L2 — Inform-after</option>
+        <option value="3">L3 — Guardrailed</option>
+        <option value="4">L4 — Supervised</option>
+        <option value="5">L5 — Accountable</option>
       </select>
     </label>
     <label>Review date<input id="m-date" type="date"></label>
@@ -74,9 +75,10 @@
   <section id="result" hidden></section>
 
   <footer>
-    Scores L0–L4 per the framework. Safe grant level = min(guardrails, telemetry,
+    Scores 0–5 per the framework: definitive levels L1–L5, with L0 as the
+    Submarine Line (no autonomy at all). Safe grant level = min(guardrails, telemetry,
     accountability) — the weakest-link rule. Evidence or it didn’t happen: scores of
-    L2+ should be backed by links, logs or artifacts.
+    L3+ should be backed by links, logs or artifacts.
   </footer>
 </main>
 
@@ -95,7 +97,7 @@
     var lg = document.createElement("legend");
     lg.textContent = dim.code + " — " + dim.name;
     fs.appendChild(lg);
-    for (var lvl = 1; lvl <= 4; lvl++) {
+    for (var lvl = 1; lvl <= 5; lvl++) {
       var row = document.createElement("div");
       row.className = "q";
       var tag = document.createElement("span");
@@ -121,7 +123,7 @@
     var scores = {};
     A.DIMENSIONS.forEach(function (dim) {
       var answers = {};
-      for (var lvl = 1; lvl <= 4; lvl++) {
+      for (var lvl = 1; lvl <= 5; lvl++) {
         answers[lvl] = document.getElementById(dim.code + "-" + lvl).checked;
       }
       scores[dim.code] = A.scoreDimension(dim.code, answers);

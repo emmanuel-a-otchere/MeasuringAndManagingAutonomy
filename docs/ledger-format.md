@@ -1,9 +1,10 @@
-# Autonomy Ledger format (v1)
+# Autonomy Ledger format (schema v2)
 
-> **Status:** v0.1 draft. The machine-readable form of the
-> [Autonomy Ledger](maturity-model.md#5-the-autonomy-ledger): the registry of
-> all autonomy contracts, i.e. the measurement of **granted autonomy
-> (supply)**.
+> **Status:** v2 draft (schema 2, since ruleset v2.0.0). The machine-readable
+> form of the [Autonomy Ledger](maturity-model.md#5-the-autonomy-ledger): the
+> registry of all autonomy contracts, i.e. the measurement of **granted
+> autonomy (supply)**. Schema 1 files (retired 0–4 level scale) are still
+> readable but warned about — see [versioning](versioning.md).
 
 ## Purpose
 
@@ -18,9 +19,12 @@ Ledger health (coverage and staleness) is an org-level metric; the tool
 `examples/ledger.yaml` is the reference ledger, seeded from the
 [worked example](../examples/README.md). Copy it as your starting point.
 
-The file declares its format version with a top-level `schema: 1`. A missing
-`schema:` field is treated as `1` (backward compatibility); newer schemas are
-flagged but still validated — see [versioning](versioning.md).
+The file declares its format version with a top-level `schema: 2`. A missing
+`schema:` field is treated as the current supported schema (backward
+compatibility with pre-versioning files); a `schema: 1` file is still
+validated but warned about (retired 0–4 level scale — re-baseline), and
+newer schemas are flagged but still validated — see
+[versioning](versioning.md).
 
 ## Schema
 
@@ -31,7 +35,7 @@ contracts:
   - id: payments-deploys-v2          # required, unique, stable across versions
     unit: payments-team              # required
     domain: production-deploys       # required, machine-friendly slug
-    level: 2                         # required, 0-4 (L0-L4)
+    level: 3                         # required, 0-5 (L0 Submarine Line .. L5 Accountable)
     scope: >                         # required, human sentence
       Production deploys of the payments service (excl. schema migrations).
     guardrails:                      # required, non-empty list
@@ -58,7 +62,7 @@ contracts:
 | Field | Rule |
 |---|---|
 | `id` | Unique; version the contract (`-v2`) rather than mutating history in place |
-| `level` | Integer 0–4 |
+| `level` | Integer 0–5 (definitive levels 1–5; 0 = Submarine Line — no autonomy at all) |
 | `horizon`, `last_review` | ISO-8601 dates; `last_review` ≤ `horizon` |
 | `status` | `active` contracts must have all required fields; `draft` is exempt from health penalties but listed |
 | `guardrails`, `telemetry`, `revocation_triggers` | Non-empty lists — a contract without them is not a contract (see framework §5) |

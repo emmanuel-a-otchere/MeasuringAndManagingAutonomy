@@ -1,6 +1,6 @@
-# Versioning and backward compatibility (v1.0)
+# Versioning and backward compatibility
 
-> **Status:** v1.0 policy. The framework freezes its scoring rules and manages
+> **Status:** v2.0 policy (current ruleset `RULESET_VERSION = 2.0.0`). The framework freezes its scoring rules and manages
 > changes so that **assessments stay comparable over time**.
 
 ## Why versioning matters
@@ -24,7 +24,7 @@ compatibility policy.
 | What | Constant | Where it lives |
 |---|---|---|
 | **Scoring ruleset** | `RULESET_VERSION` | `tools/autonomy_score.py`, `site/scoring.js` (kept identical, parity-tested) |
-| **Ledger format** | `SCHEMA_VERSION` (integer, currently `1`) | top-level `schema:` field in `ledger.yaml`, handled by `tools/ledger_health.py` |
+| **Ledger format** | `SCHEMA_VERSION` (integer, currently `2`) | top-level `schema:` field in `ledger.yaml`, handled by `tools/ledger_health.py` |
 
 ## Ruleset versioning: MAJOR.MINOR.PATCH
 
@@ -45,21 +45,31 @@ Rules of the road:
 - **Comparability zone:** scorecards may be compared within the same MAJOR
   version, and with the immediately preceding MAJOR *only* if a mapping table
   exists in the changelog.
-- **Frozen semantics at v1.x:** the five level definitions (L0–L4), the six
-  dimensions (D1–D6), the weakest-link rule `min(D3,D4,D6)`, and the
-  two-clean-cycles expansion rule are frozen. Changes to them are MAJOR by
-  definition.
+- **Frozen semantics at v2.x:** the definitive level definitions (L1–L5, with
+  L0 as the Submarine Line), the six dimensions (D1–D6), the weakest-link
+  rule `min(D3,D4,D6)`, and the two-clean-cycles expansion rule are frozen.
+  Changes to them are MAJOR by definition.
+- **Mapping from v1.x (the re-baseline that produced 2.0.0):** the v1 scale's
+  L0–L4 map to v2's L1–L5 (old level *n* → new level *n+1*); v1's implicit
+  floor becomes the named Submarine Line (L0). A coarse trend comparison
+  across the re-baseline may use this mapping; formal comparability starts
+  with re-scored v2 baselines.
 
 ## Ledger schema versioning
 
-- `ledger.yaml` SHOULD declare `schema: 1` (top-level, integer).
+- `ledger.yaml` SHOULD declare `schema: 2` (top-level, integer) — the v2.0.0
+  ruleset's level scale (definitive L1–L5, L0 Submarine Line).
 - **Backward compatibility:** `ledger_health.py` treats a *missing* `schema:`
-  field as `schema: 1` — pre-versioning ledgers keep validating unchanged.
+  field as the current supported schema — pre-versioning ledgers keep
+  validating unchanged.
+- **Schema 1 (retired):** files declaring `schema: 1` (the pre-2.0.0 0–4
+  scale) still validate, with a **warning** that their levels are not
+  comparable with the current scale and should be re-baselined to `schema: 2`
+  using the mapping above.
 - **Forward compatibility:** a ledger declaring a *newer* schema than the tool
   supports is a **readable but flagged** condition (warning, not a schema
   error): the tool reports on the fields it understands rather than refusing
-  the file. A ledger declaring an *older* schema (there is none older than 1)
-  would be an error.
+  the file.
 - Schema changes follow the same MAJOR/MINOR logic: new optional fields are a
   MINOR bump; removing/renaming/re-typing existing fields is MAJOR and
   requires a documented migration.
@@ -68,7 +78,7 @@ Rules of the road:
 
 | Artifact | Records |
 |---|---|
-| CLI / web scorecard output | `ruleset_version` field (and printed line) — e.g. `"1.0.0"` |
+| CLI / web scorecard output | `ruleset_version` field (and printed line) — e.g. `"2.0.0"` |
 | Web scorecard print view | ruleset version in the scorecard header |
 | Autonomy contract (`docs/contract-template.md`) | ruleset version + date of the assessment baseline |
 | Ledger file | `schema:` integer |
