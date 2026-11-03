@@ -8,6 +8,20 @@ ruleset** (`RULESET_VERSION`, e.g. `1.0.0`) and the **ledger format**
 
 ## Unreleased
 
+## v1.1.1 — 2026-11-03
+
+Metadata only — no code or scoring changes (`RULESET_VERSION` stays 1.0.0).
+
+### Packaging
+
+- PyPI project description: the README's repo-relative links rendered as
+  broken `pypi.org/project/...` paths there; all links now use absolute
+  GitHub URLs (identical behavior on GitHub and PyPI)
+- Wheel classifiers corrected for PyPI's server-side validation —
+  `Intended Audience :: Management` is not a valid trove classifier; replaced
+  with `Developers` + `Information Technology` (the PyPI 1.1.0 artifacts
+  already carried this fix; the GitHub Release artifacts rebuild with it here)
+
 ## v1.1.0 — 2026-11-03
 
 Toolkit release: the framework tools are now installable and distributable.
