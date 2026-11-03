@@ -15,9 +15,11 @@ The maturity model serves two distinct measurement jobs:
 
 ## 2. The six dimensions
 
-Each dimension is scored on the five autonomy levels (L0–L4 from the
-[framework](framework.md#4-the-five-levels-of-autonomy)). A unit's maturity
-profile is the vector of its six scores.
+Each dimension is scored 0–5: the definitive autonomy levels **L1–L5** from
+the [framework](framework.md#4-the-five-levels-of-autonomy), with **L0 — the
+Submarine Line — reserved for no autonomy at all** (the unit holds nothing in
+this domain: no decision rights, not even analysis standing). A unit's
+maturity profile is the vector of its six scores.
 
 | # | Dimension | Question it answers |
 |---|---|---|
@@ -30,23 +32,26 @@ profile is the vector of its six scores.
 
 ## 3. The grid
 
-| Dimension | L0 | L1 | L2 | L3 | L4 |
-|---|---|---|---|---|---|
-| **D1 Decision clarity** | No inventory of decisions; everything runs through the grantor ad hoc | Unit can list its decisions but boundaries are informal | Written decision inventory with explicit limits per class | Limits, thresholds, and exceptions are codified and versioned | Unit redesigns its own decision inventory; boundaries are negotiated, not discovered |
-| **D2 Capability** | Decisions routinely need rework or reversal | Decisions are sound but slow; heavy reliance on one person | Repeatable decision quality across the team, standard playbooks | Predictable quality under pressure; exceptions handled without drama | Unit teaches decision-making to others; sets org-wide standards |
-| **D3 Guardrails** | None; safety comes from pre-approval | Verbal norms ("don't spend more than…") | Written limits enforced by checklists and reviews | Automated enforcement (budgets, rate limits, CI gates, auto-rollback) exercised regularly | Guardrails are self-designed, monitored, and stress-tested by the unit |
-| **D4 Telemetry** | Outcomes discovered weeks later, by others | Post-hoc reporting; manual, inconsistent | Standard dashboards for key decisions, reviewed at set cadence | Near-real-time signals; anomaly alerts reach the grantor automatically | Predictive signals; the unit detects and corrects drift before the grantor sees it |
-| **D5 Transparency** | Decisions invisible outside the room | Summary reports on request | Decision log accessible to stakeholders | Every consequential decision has a written, linkable rationale | Externally auditable trail; transparency duties designed into the workflow itself |
-| **D6 Accountability** | Blame shifts to the grantor or the process | Outcomes reviewed only after failures | Unit reviews its own outcomes at fixed cadence; escalation path defined | Escalation path exercised and improved; post-incident learning is routine | Unit accounts for outcomes to the org; failure analysis is published and reused |
+| Dimension | L0 (Submarine Line) | L1 Ask | L2 Inform-after | L3 Guardrailed | L4 Supervised | L5 Accountable |
+|---|---|---|---|---|---|---|
+| **D1 Decision clarity** | No standing in this domain: the unit holds no decision rights and is not part of the decision process | No inventory of decisions; everything runs through the grantor ad hoc | Unit can list its decisions but boundaries are informal | Written decision inventory with explicit limits per class | Limits, thresholds, and exceptions are codified and versioned | Unit redesigns its own decision inventory; boundaries are negotiated, not discovered |
+| **D2 Capability** | No decisions made — nothing to assess | Decisions routinely need rework or reversal | Decisions are sound but slow; heavy reliance on one person | Repeatable decision quality across the team, standard playbooks | Predictable quality under pressure; exceptions handled without drama | Unit teaches decision-making to others; sets org-wide standards |
+| **D3 Guardrails** | No grant, so no unit guardrails — the Submarine Line itself (total pre-approval or no engagement) is the protection | None beyond the approval gate; safety comes from pre-approval | Verbal norms ("don't spend more than…") | Written limits enforced by checklists and reviews | Automated enforcement (budgets, rate limits, CI gates, auto-rollback) exercised regularly | Guardrails are self-designed, monitored, and stress-tested by the unit |
+| **D4 Telemetry** | No decisions to observe | Outcomes discovered weeks later, by others | Post-hoc reporting; manual, inconsistent | Standard dashboards for key decisions, reviewed at set cadence | Near-real-time signals; anomaly alerts reach the grantor automatically | Predictive signals; the unit detects and corrects drift before the grantor sees it |
+| **D5 Transparency** | No decisions to disclose | Decisions invisible outside the room | Summary reports on request | Decision log accessible to stakeholders | Every consequential decision has a written, linkable rationale | Externally auditable trail; transparency duties designed into the workflow itself |
+| **D6 Accountability** | No owned outcomes | Blame shifts to the grantor or the process | Outcomes reviewed only after failures | Unit reviews its own outcomes at fixed cadence; escalation path defined | Escalation path exercised and improved; post-incident learning is routine | Unit accounts for outcomes to the org; failure analysis is published and reused |
 
 ### Scoring rules
 
 - Score each dimension **independently** at the highest level *fully* achieved
   (all row cells for that level true). Partial achievement of a level scores
-  as the level below.
+  as the level below. A dimension where not even the L1 cell is true scores
+  **0** — the Submarine Line for that dimension.
 - **The weakest Link rule:** the safe autonomy level for a *grant* is
   `min(D3, D4, D6)` — guardrails, telemetry, and accountability bound the level,
-  because a breach in any of them turns autonomy into unmanaged risk.
+  because a breach in any of them turns autonomy into unmanaged risk. A safe
+  level of 0 means nothing is grantable yet: stay on the Submarine Line and
+  build the safety dimensions first.
 - Capability (D2) and clarity (D1) gaps are *coaching* signals, not
   *revocation* signals. They cap the pace of expansion, not the current grant.
 

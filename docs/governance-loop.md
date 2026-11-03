@@ -12,7 +12,7 @@ GRANT → INSTRUMENT → OBSERVE → REVIEW → (Expand | Contract | Re-shape) �
 
 Each stage is defined below. The loop runs **per autonomy contract**, on the
 contract's horizon — typically quarterly, shorter (monthly) for newly raised
-levels, longer (biannual) for mature L4 domains.
+levels, longer (biannual) for mature L5 domains.
 
 ## 1. GRANT
 
@@ -20,7 +20,7 @@ Autonomy is granted, never assumed. A grant has five mandatory components
 (the [autonomy contract](framework.md#5-autonomy-contracts)):
 
 1. Named domain and decision classes
-2. Level (L0–L4) per domain, **with the guardrails that justify it**
+2. Level (L0–L5; definitive grants are L1–L5) per domain, **with the guardrails that justify it**
 3. Horizon / review date
 4. Telemetry obligations
 5. Revocation triggers — observable conditions, agreed *up front*
@@ -47,7 +47,7 @@ or be built as part of the grant. Minimum set per domain:
 - **Breach signals** — automated alerts on guardrail violation, routed to
   both the unit and the grantor.
 
-If you cannot instrument it, you cannot safely grant above L2.
+If you cannot instrument it, you cannot safely grant above L3.
 
 ## 3. OBSERVE
 
@@ -83,7 +83,7 @@ The review compares reality to the contract using the
 **Anti-patterns to enforce against:**
 
 - *Panic revocation:* a single incident permanently dropping a mature unit to
-  L0. Contracts exist precisely to prevent emotional resets. One breach ⇒
+  the Submarine Line (or L1 Ask). Contracts exist precisely to prevent emotional resets. One breach ⇒
   one step down, with a defined re-raise path.
 - *Ratchet only up:* expansions that are never reviewed and never come down
   quietly turn the ledger into fiction.
@@ -103,10 +103,10 @@ The review compares reality to the contract using the
 
 | Event | Frequency |
 |---|---|
-| Standing contract review | Quarterly (monthly after a level raise; biannual for mature L4) |
+| Standing contract review | Quarterly (monthly after a level raise; biannual for mature L5) |
 | Incident-triggered early review | Within 5 working days of a revocation trigger |
 | Org-wide ledger census | Annually |
-| Guardrail drills (for L3+) | At least every two quarters per domain |
+| Guardrail drills (for L4+) | At least every two quarters per domain |
 
 ## 8. Starting from zero
 

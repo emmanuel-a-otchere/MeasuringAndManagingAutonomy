@@ -29,6 +29,7 @@ the organization. It answers three questions:
 | Term | Definition |
 |---|---|
 | **Unit** | The entity being granted autonomy: a person, team, service, department, or (increasingly) an AI agent. |
+| **Submarine Line (L0)** | The floor of the scale: no autonomy at all. Nothing granted, nothing exercised, nothing to review or revoke. Referenced as grounding — where every grant starts and where revocation can land. |
 | **Decision** | A choice among alternatives that commits resources, changes state, or affects others. |
 | **Decision right** | The authority to make a specific class of decisions, at a specific autonomy level, within a defined scope. |
 | **Autonomy** | The set of decision rights a unit holds, and the level at which it holds them. |
@@ -57,15 +58,21 @@ time-boxed and re-grantable, never permanent or implicit.
 ## 4. The five levels of autonomy
 
 Adapting the delegation ladder common in safety-critical systems to business
-settings:
+settings. The **definitive levels are L1–L5**; **L0 is the Submarine Line** —
+no autonomy at all — kept as the grounding floor beneath the scale:
 
 | Level | Name | Meaning | Analogy |
 |---|---|---|---|
-| **L0** | **Ask** | Unit may analyze and recommend, but every decision requires approval. | Apprentice |
-| **L1** | **Inform-after** | Unit decides and acts, then reports what it decided. Decisions reviewable and reversible by the grantor. | Junior with a manager |
-| **L2** | **Guardrailed** | Unit decides and acts freely within explicit, pre-agreed limits (budgets, allow-lists, rate limits, checklists). | Credit card with a limit |
-| **L3** | **Supervised** | Unit decides and acts; a monitoring function observes for exceptions and intervenes on trigger, not on pre-approval. | Autonomous car with safety driver |
-| **L4** | **Accountable** | Unit owns the domain outright, including the right to redesign its own guardrails, subject only to outcome accountability and transparency duties. | Business unit P&L owner |
+| **L0** | **Submarine Line** | No autonomy at all. The unit holds nothing in this domain — no decision rights, no standing to act; there is nothing to review or revoke. Every organization starts here. | Submerged: below the waterline, no surface to act from |
+| **L1** | **Ask** | Unit may analyze and recommend, but every decision requires approval. | Apprentice |
+| **L2** | **Inform-after** | Unit decides and acts, then reports what it decided. Decisions reviewable and reversible by the grantor. | Junior with a manager |
+| **L3** | **Guardrailed** | Unit decides and acts freely within explicit, pre-agreed limits (budgets, allow-lists, rate limits, checklists). | Credit card with a limit |
+| **L4** | **Supervised** | Unit decides and acts; a monitoring function observes for exceptions and intervenes on trigger, not on pre-approval. | Autonomous car with safety driver |
+| **L5** | **Accountable** | Unit owns the domain outright, including the right to redesign its own guardrails, subject only to outcome accountability and transparency duties. | Business unit P&L owner |
+
+*Scale note (v2.0.0): the level scale was re-based from the retired 0–4
+scheme to definitive L1–L5 with L0 as the Submarine Line. Assessments on the
+two scales are not comparable — see [versioning](versioning.md).*
 
 Two rules govern level assignment:
 
@@ -73,8 +80,9 @@ Two rules govern level assignment:
   guardrails for level *n* exist and are tested. Level without guardrail is
   negligence, not trust.
 - **The reversibility rule:** expected level rises with reversibility and falls
-  with blast radius. High blast radius + low reversibility ⇒ L0–L1 regardless
-  of how trusted the unit is. Guardrails move decisions up the ladder by
+  with blast radius. High blast radius + low reversibility ⇒ L1–L2 at most —
+  or the Submarine Line for the extreme cases — regardless of how trusted the
+  unit is. Guardrails move decisions up the ladder by
   improving effective reversibility (automatic rollback, canary, spending cap).
 
 ## 5. Autonomy contracts
@@ -131,8 +139,8 @@ level, widen scope), **contract** (step down, tighten guardrails), or
 flowchart TD
     subgraph Design
         A[Unit & Decision] --> B{Blast radius?\\nReversibility?}
-        B -->|Low risk, reversible| H[L2/L3 grant]
-        B -->|High risk, irreversible| G[L0/L1 grant]
+        B -->|Low risk, reversible| H[L3/L4 grant]
+        B -->|High risk, irreversible| G[L1/L2 grant]
         H --> C[Autonomy Contract\\ndomains · level · horizon\\nguardrails · telemetry]
         G --> C
     end

@@ -41,7 +41,8 @@ Everything structural:
 
 - The **three axes** (scope, level, horizon) — an agent's grant names decision
   domains, a level, and an expiry like any unit's.
-- The **five levels** L0–L4 — see the concrete reading in [§4](#4-the-levels-for-an-agent-domain).
+- The **definitive levels L1–L5** with **L0 as the Submarine Line** (no autonomy at
+  all) — see the concrete reading in [§4](#4-the-levels-for-an-agent-domain).
 - **Autonomy contracts** — same six elements; for agents the "unit" field
   names the agent (and version), the `guardrails` are mostly *enforced by
   tooling* rather than by social norms, and the contract must name a **human
@@ -75,19 +76,20 @@ applies; the table below is the translation guide for agent units.
 
 | Level | Name | An agent at this level… |
 |---|---|---|
-| L0 | **Ask** | Proposes only — drafts the action (the email, the refund, the PR) for a human to execute. |
-| L1 | **Inform-after** | Executes and reports; every action reviewable and reversible by the grantor (e.g. acts in a staging path, or with next-day review of the log). |
-| L2 | **Guardrailed** | Acts freely inside enforced limits — tool allow-list, per-action and per-day caps, hard refusal classes. The usual right size for production agents. |
-| L3 | **Supervised** | Acts with a monitoring function intervening on trigger (anomaly alert → human pause), not on pre-approval. Requires D4 at L3+. |
-| L4 | **Accountable** | Owns the domain within outcome accountability — e.g. redesigns its own guardrail thresholds under audit duties. Rare; requires all six dimensions at L4 and an owner who accepts the accountability terms. |
+| L0 | **Submarine Line** | No autonomy at all: no grant, no tool access, no standing in this domain — the agent does not participate. Where every agent starts. |
+| L1 | **Ask** | Proposes only — drafts the action (the email, the refund, the PR) for a human to execute. |
+| L2 | **Inform-after** | Executes and reports; every action reviewable and reversible by the grantor (e.g. acts in a staging path, or with next-day review of the log). |
+| L3 | **Guardrailed** | Acts freely inside enforced limits — tool allow-list, per-action and per-day caps, hard refusal classes. The usual right size for production agents. |
+| L4 | **Supervised** | Acts with a monitoring function intervening on trigger (anomaly alert → human pause), not on pre-approval. Requires D4 at L4+. |
+| L5 | **Accountable** | Owns the domain within outcome accountability — e.g. redesigns its own guardrail thresholds under audit duties. Rare; requires all six dimensions at L5 and an owner who accepts the accountability terms. |
 
 The two framework rules bite hardest here:
 
-- **Guardrail rule:** an agent at L2 with unenforced limits is not L2 — it is
-  an L0 agent that has been *assumed* into L2. Prompt text saying "do not
-  spend more than…" is a verbal norm (D3 ≤ L1), not a guardrail.
+- **Guardrail rule:** an agent at L3 with unenforced limits is not L3 — it is
+  an L1 agent that has been *assumed* into L3. Prompt text saying "do not
+  spend more than…" is a verbal norm (D3 ≤ L2), not a guardrail.
 - **Reversibility rule:** irreversible actions (payments sent, emails to
-  customers, production data deletes) stay L0–L1 regardless of eval scores —
+  customers, production data deletes) stay L1–L2 regardless of eval scores —
   unless a guardrail makes them effectively reversible (escrow, hold-for-review,
   soft delete).
 
@@ -118,30 +120,30 @@ somewhere a consequence can land. For agent units, D6 scores the *arrangement*:
   is shipped, not just discussed.
 
 An agent whose owner cannot say, in one sentence, what they are accountable
-for when the agent fails is at D6 ≤ L1 — and the weakest-link rule caps the
+for when the agent fails is at D6 ≤ 2 — and the weakest-link rule caps the
 grant accordingly, no matter how good the evals are.
 
 ## 7. Worked mini-example
 
 A support-desk **refund agent** (decides refunds on tickets; money leaves the
-company). First contract: L1 inform-after, cap $50, quarterly review. At the
+company). First contract: L2 inform-after, cap $50, quarterly review. At the
 horizon, the assessment:
 
 ```
-$ python3 tools/autonomy_score.py 3 3 2 3 2 2 --current 1
+$ python3 tools/autonomy_score.py 4 4 3 4 3 3 --current 2
 ...
-Safe grant level (min D3,D4,D6): L2
-Currently granted level:       L1
+Safe grant level (min D3,D4,D6): L3
+Currently granted level:       L2
 Recommended move: expand (after 2 clean cycles): raise one level or widen
 scope in the strongest dimension
 ```
 
-Reading: D1 = 3 (inventory of refund classes versioned with the policy), D2 = 3
-(eval suite with pass rates; handled one OOD case cleanly), D3 = 2 (caps
+Reading: D1 = 4 (inventory of refund classes versioned with the policy), D2 = 4
+(eval suite with pass rates; handled one OOD case cleanly), D3 = 3 (caps
 written and checked, but the $50 cap is a checkout setting — enforced, though
-never drilled), D4 = 3 (every refund logged; spend-rate alerts reach the
-grantor), D5 = 2 (decision log stakeholders can find), D6 = 2 (owner named,
-escalation defined but not yet exercised). Weakest link 2 → **safe L2**:
+never drilled), D4 = 4 (every refund logged; spend-rate alerts reach the
+grantor), D5 = 3 (decision log stakeholders can find), D6 = 3 (owner named,
+escalation defined but not yet exercised). Weakest link 3 → **safe L3**:
 expand the grant to guardrailed (cap $200, allow-list of refund reasons,
 hold-for-review over $100), drill the auto-step-down, exercise the escalation
 path, re-review next horizon. A fuller ledger for this example (plus a
