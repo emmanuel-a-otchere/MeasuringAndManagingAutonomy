@@ -8,6 +8,26 @@ ruleset** (`RULESET_VERSION`, e.g. `1.0.0`) and the **ledger format**
 
 ## Unreleased
 
+## v2.1.1 — 2026-11-04
+
+Repository rename — no scoring or tooling changes; `RULESET_VERSION` stays
+2.0.0.
+
+### Identity
+
+- The repository is now
+  `emmanuel-a-otchere/measuring-and-managing-autonomy` (lowercase,
+  hyphenated). All live references updated: README, package metadata
+  (`project.urls`), schema `$id`, the site's method link, package
+  docstrings, and release/security/governance docs. The distribution name
+  is unchanged (`measuring-autonomy`); the method name is unchanged
+  (`mama`); the umbrella organization is unchanged.
+- Historical changelog entries keep the URLs they were published with
+  (GitHub redirects renamed repositories and Pages sites).
+- The GitHub Pages site moves to
+  https://emmanuel-a-otchere.github.io/measuring-and-managing-autonomy/
+  (the old address redirects).
+
 ## v2.1.0 — 2026-11-04
 
 Establishment follow-through (CR MAMA-AUT-CR-001, Phases 2 & 4). Additive

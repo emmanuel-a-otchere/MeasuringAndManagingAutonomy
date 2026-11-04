@@ -30,7 +30,7 @@ user-visible tooling change.
    `./autonomy-score-macos-arm64 --self-test`.
 8. PyPI (optional, manual): configure a **trusted publisher** once on
    pypi.org — project `measuring-autonomy`, owner `emmanuel-a-otchere`,
-   repository `MeasuringAndManagingAutonomy`, workflow `publish-pypi.yml`,
+   repository `measuring-and-managing-autonomy`, workflow `publish-pypi.yml`,
    environment `pypi` — then run the "Publish to PyPI" workflow from the
    Actions tab. (Confirm the package name is free first; fallback name:
    `mama-toolkit`.)
