@@ -55,7 +55,7 @@ If you use or adapt the framework, cite this repository:
   author = {Emmanuel A. Otchere},
   title  = {Measuring and Managing Autonomy},
   year   = {2022},
-  howpublished = {\url{https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy}},
+  howpublished = {\url{https://github.com/emmanuel-a-otchere/measuring-and-managing-autonomy}},
   note   = {Framework, maturity model, and assessment instrument}
 }
 ```

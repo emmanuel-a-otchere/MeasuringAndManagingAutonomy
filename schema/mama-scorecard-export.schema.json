@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/schema/mama-scorecard-export.schema.json",
+  "$id": "https://github.com/emmanuel-a-otchere/measuring-and-managing-autonomy/blob/main/schema/mama-scorecard-export.schema.json",
   "title": "mama scorecard export (export_version 1.0.0)",
   "description": "Machine-readable export of one mama autonomy assessment (one unit x one decision domain). See docs/export-format.md. Ruleset v2 scale: definitive levels L1-L5, L0 = Submarine Line; dimension scores 0-5.",
   "type": "object",

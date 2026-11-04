@@ -23,7 +23,7 @@ so; otherwise reports are handled confidentially.
   ledger or scorecard file could misrepresent data (e.g., bypass
   validation) or leak local files when run.
 - **Out of scope:** the scoring method's semantics and validity (use
-  [framework feedback](https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/issues/new?template=framework-feedback.md));
+  [framework feedback](https://github.com/emmanuel-a-otchere/measuring-and-managing-autonomy/issues/new?template=framework-feedback.md));
   vulnerabilities in GitHub Pages, PyPI, or third-party actions should also
   be reported to those platforms.
 

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "measuring-autonomy"
-version = "2.1.0"
+version = "2.1.1"
 description = "Measure and manage autonomy: safe-level scoring, Autonomy Ledger health checks, and framework tooling."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -30,8 +30,8 @@ classifiers = [
 dependencies = ["pyyaml>=5.4"]
 
 [project.urls]
-Homepage = "https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy"
-Changelog = "https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/emmanuel-a-otchere/measuring-and-managing-autonomy"
+Changelog = "https://github.com/emmanuel-a-otchere/measuring-and-managing-autonomy/blob/main/CHANGELOG.md"
 
 [project.scripts]
 autonomy-score = "measuring_autonomy.score:main"
