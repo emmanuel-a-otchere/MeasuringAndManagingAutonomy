@@ -102,6 +102,13 @@ jobs:
       - name: Make binaries executable
         run: find assets -type f ! -name '*.exe' ! -name '*.whl' ! -name '*.tar.gz' -exec chmod +x {} +
 
+      - name: Generate SHA256 checksums (release provenance)
+        run: |
+          cd assets
+          sha256sum * > SHA256SUMS.txt
+          cd ..
+          cat assets/SHA256SUMS.txt
+
       - name: Extract changelog notes for this version
         run: |
           python3 - <<'EOF'
@@ -118,5 +125,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" assets/* \
+          gh release create "$GITHUB_REF_NAME" assets/* assets/SHA256SUMS.txt \
             --title "$GITHUB_REF_NAME" --notes-file notes.md
