@@ -5,7 +5,7 @@
 > autonomy* — **this** method and toolkit: the autonomy-governance component
 > that makes delegated decision rights explicit, assessable, and manageable.
 > This repository is `mama`'s **canonical home**.
-> **MAMA** (uppercase) = *Measuring Automation & Measuring Autonomy* — the
+> **MAMA** (uppercase) = *Measuring Automation, Managing Autonomy* — the
 > broader, integrated framework
 > ([umbrella organization](https://github.com/Measuring-Automation-Managing-Autonomy))
 > that uses `mama` alongside automation measurement, project/portfolio

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "measuring-autonomy"
-version = "2.1.1"
+version = "2.1.2"
 description = "Measure and manage autonomy: safe-level scoring, Autonomy Ledger health checks, and framework tooling."
 readme = "README.md"
 requires-python = ">=3.9"
