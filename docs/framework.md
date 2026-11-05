@@ -160,9 +160,9 @@ flowchart TD
     end
 ```
 
-*(Mermaid renders natively on GitHub. The original 2022 concept diagram is
-preserved as `docs/img/original-diagram.png` if provided; see
-[Contributing](../CONTRIBUTING.md).)*
+*(Mermaid renders natively on GitHub. The original 2022 concept diagram —
+"Measuring Autonomy Based on 3-Axis of Freedom" — is preserved at
+[`docs/img/`](img/README.md), with its mapping to the current axes.)*
 
 ## Next steps
 
