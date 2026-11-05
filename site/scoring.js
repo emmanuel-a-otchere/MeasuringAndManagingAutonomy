@@ -5,8 +5,8 @@
  *
  * Exposes (browser: window.Autonomy; CommonJS: module.exports):
  *   DIMENSIONS, LEVELS, QUESTIONS,
- *   scoreDimension(answers) -> 0..4,
- *   safeLevel(scores) -> 0..4            (weakest-link rule: min D3, D4, D6)
+ *   scoreDimension(answers) -> 0..5,
+ *   safeLevel(scores) -> 0..5            (weakest-link rule: min D3, D4, D6)
  *   gapNotes(scores, current) -> [string]
  *   recommendedMove(scores, current) -> string
  *   assess(scores, current) -> object
@@ -23,7 +23,8 @@
     { code: "D6", name: "accountability" }
   ];
 
-  var LEVEL_NAMES = ["Ask", "Inform-after", "Guardrailed", "Supervised", "Accountable"];
+  // Index 0 is the Submarine Line: no autonomy at all (v2.0.0 scale).
+  var LEVEL_NAMES = ["Submarine Line", "Ask", "Inform-after", "Guardrailed", "Supervised", "Accountable"];
   var WEAKEST_LINK = ["D3", "D4", "D6"];
   var CLEAN_CYCLES_TO_EXPAND = 2;
 
@@ -31,54 +32,65 @@
   // Kept identical to tools/autonomy_score.py; parity asserted by both
   // self-tests. MAJOR = re-scoring; MINOR = additive/clarification; PATCH = no
   // change to scored outputs.
-  var RULESET_VERSION = "1.0.0";
+  // 2.0.0: MAJOR re-baseline — definitive levels L1..L5, L0 = Submarine Line.
+  var RULESET_VERSION = "2.0.0";
 
   // Question items per (dimension, level), from docs/assessment.md.
   // A dimension scores at level n if all items for levels <= n are true.
+  // L1 items describe the Ask arrangement (analyze and recommend, everything
+  // approved); a dimension with none of them true scores 0 — the Submarine
+  // Line: no autonomy at all in this dimension.
   var QUESTIONS = {
     D1: {
-      1: "The unit can produce a list of decisions it currently makes",
-      2: "A written inventory names the decision classes, their level and limits, updated in the last quarter",
-      3: "Thresholds, exceptions and edge cases are codified and versioned",
-      4: "The unit redesigned its own decision inventory in the last two cycles, by negotiation not discovery"
+      1: "The unit knows which decisions it may analyze and recommend here, and that every decision requires approval",
+      2: "The unit can produce a list of decisions it currently makes",
+      3: "A written inventory names the decision classes, their level and limits, updated in the last quarter",
+      4: "Thresholds, exceptions and edge cases are codified and versioned",
+      5: "The unit redesigned its own decision inventory in the last two cycles, by negotiation not discovery"
     },
     D2: {
-      1: "No materially wrong or reversed decisions in this domain last quarter",
-      2: "Playbooks exist and any member can make a routine decision to the same standard",
-      3: "At least one genuine exception was handled without escalation and without harm",
-      4: "The unit has taught this domain to another unit or set an org-wide standard"
+      1: "The unit can produce a sound analysis or recommendation in this domain, even if slowly or with rework",
+      2: "Decisions are sound but slow, with heavy reliance on one person",
+      3: "Playbooks exist and any member can make a routine decision to the same standard",
+      4: "At least one genuine exception was handled without escalation and without harm",
+      5: "The unit has taught this domain to another unit or set an org-wide standard"
     },
     D3: {
-      1: "There are stated limits at all — even verbal",
-      2: "Limits are written and checked (checklist, reviewer, manual gate)",
-      3: "Limits are automated (budgets, gates, auto-rollback) and were exercised in the last two quarters",
-      4: "The unit designed its own guardrails, monitors them, and stress-tests them"
+      1: "Every decision is gated: nothing acts without the grantor's explicit approval",
+      2: "There are stated limits at all — even verbal",
+      3: "Limits are written and checked (checklist, reviewer, manual gate)",
+      4: "Limits are automated (budgets, gates, auto-rollback) and were exercised in the last two quarters",
+      5: "The unit designed its own guardrails, monitors them, and stress-tests them"
     },
     D4: {
-      1: "A bad decision in this domain would be noticed by someone within a quarter",
-      2: "Standard dashboards exist and are reviewed by the unit at a fixed cadence",
-      3: "Signals are near-real-time and breach alerts reach the grantor automatically",
-      4: "The unit has demonstrated catching and correcting drift before anyone external noticed"
+      1: "The grantor sees each decision as part of approving it",
+      2: "A bad decision in this domain would be noticed by someone within a quarter",
+      3: "Standard dashboards exist and are reviewed by the unit at a fixed cadence",
+      4: "Signals are near-real-time and breach alerts reach the grantor automatically",
+      5: "The unit has demonstrated catching and correcting drift before anyone external noticed"
     },
     D5: {
-      1: "The grantor can get a summary of recent decisions on request",
-      2: "A decision log stakeholders can find without asking anyone",
-      3: "Every consequential decision has a written, linkable rationale",
-      4: "An external auditor could reconstruct the decision history and reasoning end-to-end"
+      1: "Each decision is visible to the grantor at approval time",
+      2: "The grantor can get a summary of recent decisions on request",
+      3: "A decision log stakeholders can find without asking anyone",
+      4: "Every consequential decision has a written, linkable rationale",
+      5: "An external auditor could reconstruct the decision history and reasoning end-to-end"
     },
     D6: {
-      1: "After the last failure, ownership was assigned to the unit (not deflected)",
-      2: "The unit reviews its own outcomes on a fixed cadence; the escalation path is written down",
-      3: "The escalation path has been exercised at least once; post-incident learning is routine",
-      4: "The unit published a failure analysis that another unit has reused"
+      1: "Ownership is explicit at approval: the grantor owns what they approve",
+      2: "After the last failure, ownership was assigned to the unit (not deflected)",
+      3: "The unit reviews its own outcomes on a fixed cadence; the escalation path is written down",
+      4: "The escalation path has been exercised at least once; post-incident learning is routine",
+      5: "The unit published a failure analysis that another unit has reused"
     }
   };
 
   function scoreDimension(code, answers) {
-    // answers: {level: bool} for levels 1..4 of this dimension.
-    // Score = the highest level whose items for ALL levels <= it are true.
+    // answers: {level: bool} for levels 1..5 of this dimension.
+    // Score = the highest level whose items for ALL levels <= it are true;
+    // 0 (Submarine Line) when even the L1 item is false.
     var level = 0;
-    for (var n = 1; n <= 4; n++) {
+    for (var n = 1; n <= 5; n++) {
       var allTrue = true;
       for (var k = 1; k <= n; k++) {
         if (!answers[k]) { allTrue = false; break; }
@@ -95,7 +107,18 @@
   function recommendedMove(scores, current) {
     var weakest = safeLevel(scores);
     if (current === null || current === undefined) {
+      if (weakest === 0) {
+        return "submarine: no autonomy is safe to grant yet — build " +
+          "guardrails, telemetry, and accountability before any contract";
+      }
       return "formalize: write a contract at the safe level before any change";
+    }
+    if (current === 0) {
+      if (weakest === 0) {
+        return "hold at the Submarine Line (L0): no autonomy is safe to " +
+          "grant yet; build guardrails, telemetry, and accountability";
+      }
+      return "formalize: write the first contract at the safe level (L" + weakest + ")";
     }
     if (weakest < current) {
       return "contract or re-shape: safety dimensions lag the grant";
@@ -119,6 +142,9 @@
         " below the safety floor — invest in clarity/capability; do not revoke for this");
     }
     if (current !== null && current !== undefined) {
+      if (current === 0) {
+        notes.push("no formal grant (Submarine Line): nothing has been delegated in this domain");
+      }
       var headroom = safeLevel(scores) - current;
       if (headroom > 0) {
         notes.push("headroom: safe level exceeds granted level by " + headroom +

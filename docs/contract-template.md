@@ -15,7 +15,7 @@
 | **Unit** | <who holds the autonomy> |
 | **Grantor** | <named person/role — no grantor, no autonomy> |
 | **Domain** | <decision class, e.g. production deploys> |
-| **Level** | <L0 Ask / L1 Inform-after / L2 Guardrailed / L3 Supervised / L4 Accountable> |
+| **Level** | <L0 Submarine Line (no autonomy) / L1 Ask / L2 Inform-after / L3 Guardrailed / L4 Supervised / L5 Accountable> |
 | **Horizon** | <ISO date — "ongoing" is not a horizon> |
 | **Review cadence** | <default quarterly; monthly after a level raise> |
 | **Status** | <active / draft / expired / revoked> |
@@ -41,7 +41,7 @@ explicit exclusions (what still requires approval).
 D1 clarity / D2 capability / D3 guardrails / D4 telemetry / D5 transparency /
 D6 accountability — scores with evidence, per docs/assessment.md.
 Safe level (min D3, D4, D6): <L*>
-Ruleset version used for this baseline: <e.g. 1.0.0> (see docs/versioning.md —
+Ruleset version used for this baseline: <e.g. 2.0.0> (see docs/versioning.md —
 scores are comparable only within the same MAJOR ruleset version)
 
 ## Notes

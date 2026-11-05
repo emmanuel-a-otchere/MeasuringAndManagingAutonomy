@@ -2,14 +2,14 @@
 # Companion to docs/agents-as-units.md (worked mini-example in its §7).
 # Agent contracts live in the same ledger as human ones; the schema is
 # unchanged. Replace with your own.
-schema: 1
+schema: 2
 
 contracts:
-  # --- Worked example: refund agent, expanded from L1 to guardrailed L2 ---
+  # --- Worked example: refund agent, expanded from L2 to guardrailed L3 ---
   - id: refund-agent-v2
     unit: support-refund-agent
     domain: customer-refunds
-    level: 2
+    level: 3
     scope: >
       Refund decisions on support tickets: approve/execute up to $200 from an
       allow-list of refund reasons; 100-200 held for human review; >$200 or
@@ -35,16 +35,16 @@ contracts:
     review_cadence_days: 90
     status: active
     notes: >
-      v1 ran at L1 inform-after ($50 cap). First assessment scored
-      D1-D6 = 3,3,2,3,2,2; safe level L2 (docs/agents-as-units.md §7).
-      Expanded to guardrailed L2 with drilled step-down; escalation path
+      v1 ran at L2 inform-after ($50 cap). First assessment scored
+      D1-D6 = 4,4,3,4,3,3; safe level L3 (docs/agents-as-units.md §7).
+      Expanded to guardrailed L3 with drilled step-down; escalation path
       exercised once (D6 re-check next horizon).
 
   # --- Second entry: draft-stage agent, not yet assessed ------------------
   - id: docs-agent-v1
     unit: internal-docs-agent
     domain: knowledge-base-writes
-    level: 1
+    level: 2
     scope: >
       Drafting and updating internal knowledge-base pages; publishes only to
       the staging space, production publish requires editor approval.
@@ -64,5 +64,5 @@ contracts:
     status: draft
     notes: >
       First contract, still draft: D1/D5 unassessed, no eval suite yet (D2).
-      Stay at L1 until the assessment produces evidence; do not expand on
+      Stay at L2 until the assessment produces evidence; do not expand on
       impression.

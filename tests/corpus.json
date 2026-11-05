@@ -1,0 +1,112 @@
+{
+  "corpus_version": "1.0.0",
+  "ruleset_version": "2.0.0",
+  "description": "Shared test corpus for every mama scoring implementation. Each case is engine-agnostic: expected values are the assess() output on the v2 scale. Every implementation (Python measuring_autonomy.score, site/scoring.js) must reproduce every case exactly; CI runs a checker per implementation and blocks release on drift. Bump corpus_version together with ruleset_version on any scoring change.",
+  "cases": [
+    {
+      "name": "worked-example-formalize",
+      "description": "Worked example (examples/README.md): no formal grant, shadow autonomy found",
+      "scores": { "D1": 2, "D2": 4, "D3": 3, "D4": 3, "D5": 2, "D6": 2 },
+      "current": null,
+      "expect": {
+        "safe_grant_level": 2,
+        "recommended_move": "formalize: write a contract at the safe level before any change"
+      }
+    },
+    {
+      "name": "submarine-no-grant",
+      "description": "All-zero profile with no grant: nothing is safe to grant",
+      "scores": { "D1": 0, "D2": 0, "D3": 0, "D4": 0, "D5": 0, "D6": 0 },
+      "current": null,
+      "expect": {
+        "safe_grant_level": 0,
+        "recommended_move": "submarine: no autonomy is safe to grant yet — build guardrails, telemetry, and accountability before any contract"
+      }
+    },
+    {
+      "name": "submarine-held",
+      "description": "All-zero profile, current = L0 (Submarine Line): hold and build",
+      "scores": { "D1": 0, "D2": 0, "D3": 0, "D4": 0, "D5": 0, "D6": 0 },
+      "current": 0,
+      "expect": {
+        "safe_grant_level": 0,
+        "recommended_move": "hold at the Submarine Line (L0): no autonomy is safe to grant yet; build guardrails, telemetry, and accountability",
+        "notes_contain": ["no formal grant (Submarine Line)"]
+      }
+    },
+    {
+      "name": "formalize-from-submarine",
+      "description": "current = L0 but safety dimensions support a grant: write the first contract",
+      "scores": { "D1": 3, "D2": 3, "D3": 3, "D4": 3, "D5": 3, "D6": 3 },
+      "current": 0,
+      "expect": {
+        "safe_grant_level": 3,
+        "recommended_move": "formalize: write the first contract at the safe level (L3)"
+      }
+    },
+    {
+      "name": "hold-stable",
+      "description": "All dimensions at 4, granted L4: hold",
+      "scores": { "D1": 4, "D2": 4, "D3": 4, "D4": 4, "D5": 4, "D6": 4 },
+      "current": 4,
+      "expect": {
+        "safe_grant_level": 4,
+        "recommended_move": "hold: stable at the current level; re-review next horizon",
+        "notes_contain": ["granted level matches safe level: hold and review"]
+      }
+    },
+    {
+      "name": "hold-and-coach",
+      "description": "D1/D2 lag the safety floor: coaching signal, keep the grant",
+      "scores": { "D1": 1, "D2": 2, "D3": 4, "D4": 4, "D5": 4, "D6": 4 },
+      "current": 4,
+      "expect": {
+        "safe_grant_level": 4,
+        "recommended_move": "hold and coach: capability/clarity lag; keep the grant",
+        "notes_contain": ["coaching signal: D1, D2"]
+      }
+    },
+    {
+      "name": "over-grant",
+      "description": "Granted L4 but D3 = 2: over-grant, contract or re-shape",
+      "scores": { "D1": 5, "D2": 5, "D3": 2, "D4": 5, "D5": 5, "D6": 5 },
+      "current": 4,
+      "expect": {
+        "safe_grant_level": 2,
+        "recommended_move": "contract or re-shape: safety dimensions lag the grant",
+        "notes_contain": ["over-grant: granted level exceeds safe level by 2"]
+      }
+    },
+    {
+      "name": "headroom-expand",
+      "description": "Safe L4, granted L3: headroom, expand after clean cycles",
+      "scores": { "D1": 5, "D2": 5, "D3": 4, "D4": 4, "D5": 5, "D6": 4 },
+      "current": 3,
+      "expect": {
+        "safe_grant_level": 4,
+        "recommended_move": "expand (after 2 clean cycles): raise one level or widen scope in the strongest dimension",
+        "notes_contain": ["headroom: safe level exceeds granted level by 1"]
+      }
+    },
+    {
+      "name": "submarine-dimension-floor",
+      "description": "One zero safety dimension (D4) grounds the grant at the Submarine Line even at granted L5",
+      "scores": { "D1": 5, "D2": 5, "D3": 5, "D4": 0, "D5": 5, "D6": 5 },
+      "current": 5,
+      "expect": {
+        "safe_grant_level": 0,
+        "recommended_move": "contract or re-shape: safety dimensions lag the grant"
+      }
+    }
+  ],
+  "invalid_inputs": {
+    "description": "Rejected by the Python engine's parse/validation (the JS engine has no score-vector parser; JS coverage is the scoreDimension ladder logic in tools/site_selftest.js).",
+    "score_vectors": [
+      { "name": "too-few-scores", "scores": [1, 2, 3, 4, 5] },
+      { "name": "non-integer", "scores": [1, 2, 3, 4, 5, "x"] },
+      { "name": "out-of-range-high", "scores": [9, 9, 9, 9, 9, 9] },
+      { "name": "out-of-range-six", "scores": [6, 6, 6, 6, 6, 6] }
+    ],
+    "current_values": [-1, 6]
+  }
+}

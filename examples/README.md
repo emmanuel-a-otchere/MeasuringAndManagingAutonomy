@@ -9,33 +9,33 @@
 - **Domain:** Production deployment of the payments service
 - **Current grant (informal, discovered during inventory):** "The team
   deploys whenever they feel ready; the engineering director approves
-  anything risky." — i.e., *shadow autonomy*: exercised somewhere between L1
-  and L2, granted nowhere on paper. Blast radius: customer payments — high.
-  Reversibility: good (deploys are rollback-able) — so L2+ is plausible *if*
+  anything risky." — i.e., *shadow autonomy*: exercised somewhere between L2
+  and L3, granted nowhere on paper. Blast radius: customer payments — high.
+  Reversibility: good (deploys are rollback-able) — so L3+ is plausible *if*
   guardrails exist.
 
 ## Step 1 — Score the six dimensions
 
 | Dim | Score | Evidence / what's missing |
 |---|---|---|
-| D1 Decision clarity | **1** | No written inventory; "risky" is undefined; the director cannot name the actual limits |
-| D2 Capability | **3** | 40+ deploys/quarter, consistent quality, one real exception (failed migration) handled well |
-| D3 Guardrails | **2** | CI gates + manual review exist; no cap, no canary, auto-rollback never exercised |
-| D4 Telemetry | **2** | Error dashboard exists; alerts go to the team chat but not the grantor; usage not tracked |
-| D5 Transparency | **1** | Deploy log exists only in the CI tool; no written rationale for consequential deploys |
-| D6 Accountability | **1** | No escalation path written down; last incident review was ad hoc and blame-tinged |
+| D1 Decision clarity | **2** | No written inventory; "risky" is undefined; the director cannot name the actual limits |
+| D2 Capability | **4** | 40+ deploys/quarter, consistent quality, one real exception (failed migration) handled well |
+| D3 Guardrails | **3** | CI gates + manual review exist; no cap, no canary, auto-rollback never exercised |
+| D4 Telemetry | **3** | Error dashboard exists; alerts go to the team chat but not the grantor; usage not tracked |
+| D5 Transparency | **2** | Deploy log exists only in the CI tool; no written rationale for consequential deploys |
+| D6 Accountability | **2** | No escalation path written down; last incident review was ad hoc and blame-tinged |
 
 ## Step 2 — Apply the scoring rules
 
 ```
-Safe grant level = min(D3, D4, D6) = min(2, 2, 1) = 1
-Current *formal* grant = none (shadow autonomy at ~L2)
+Safe grant level = min(D3, D4, D6) = min(3, 3, 2) = 2
+Current *formal* grant = none (shadow autonomy at ~L3)
 ```
 
 The team is *operating above* its legitimate level — not because it is
-untrustworthy (D2 = 3 shows strong capability), but because D6
+untrustworthy (D2 = 4 shows strong capability), but because D6
 (accountability) and the surrounding contract are missing. The gap analysis
-says: **formalize or stop.** The right answer is *formalize at L2* with
+says: **formalize or stop.** The right answer is *formalize at L3* with
 guardrails that D3 already nearly meets, plus a hard fix on D6.
 
 ## Step 3 — The grant (autonomy contract, first version)
@@ -43,7 +43,7 @@ guardrails that D3 already nearly meets, plus a hard fix on D6.
 | Field | Value |
 |---|---|
 | Domain | Production deploys, payments service (excl. schema migrations) |
-| Level | **L2** — inform-after within contract limits |
+| Level | **L3** — guardrailed within contract limits |
 | Guardrails | CI gates mandatory; canary on every deploy; ≤ 10 deploys/day; spending on infra changes capped; auto-rollback exercised before go-live |
 | Horizon | 3 months (shortened — new level for this team) |
 | Telemetry | Deploy log + error budget dashboard shared with grantor; breach alert routed to grantor automatically |
@@ -52,14 +52,14 @@ guardrails that D3 already nearly meets, plus a hard fix on D6.
 
 ## Step 4 — The review, one horizon later
 
-- D3 rose to **3** (canary + exercised auto-rollback, drill completed).
-- D4 rose to **3** (grantor-visible alerts live).
-- D6 rose to **2** (written escalation path, first self-run review done).
-- D1 rose to **2** (deploy inventory written).
+- D3 rose to **4** (canary + exercised auto-rollback, drill completed).
+- D4 rose to **4** (grantor-visible alerts live).
+- D6 rose to **3** (written escalation path, first self-run review done).
+- D1 rose to **3** (deploy inventory written).
 - Usage: 26 deploys/month, zero breaches, one alert (handled within SLA).
 
 ```
-Safe level = min(3, 3, 2) = 2  → hold at L2, one more cycle before expansion
+Safe level = min(4, 4, 3) = 3  → hold at L3, one more cycle before expansion
 ```
 
 Per the [decision table](../docs/maturity-model.md#4-from-scores-to-decisions):
@@ -71,12 +71,28 @@ move is **hold**, with D6 named as the dimension to watch.
 
 1. **Shadow autonomy is found, not punished** — the inventory converted an
    informal practice into a legitimate, guardrailed grant.
-2. **Capability did not decide the level** — D2 was already 3, but the
+2. **Capability did not decide the level** — D2 was already 4, but the
    weakest-link rule (`min(D3,D4,D6)`) correctly held the grant to what the
    safety net could support.
 3. **Small, dated contracts beat permanent vague trust** — three months,
    explicit triggers, and a re-raise path made expansion a routine decision
    rather than a political one.
+
+## How MAMA consumes this example
+
+A consuming **MAMA** project (*Measuring Automation & Measuring Autonomy* —
+the umbrella framework) links its use-case record to these `mama` artifacts
+by stable identifiers: `use_case_id` ↔ unit `payments-team`, domain
+`production-deploys`, contract `payments-deploys-v2`, and the scorecard with
+its `ruleset_version` ([export format](../docs/export-format.md)); the
+ledger entry is the contract record. MAMA then plots this use case's
+automation measures — eligible-work coverage, successful-completion and
+exception rates, deploy latency and recovery — **beside** the autonomy
+measures, never blended into one score. The descriptive question MAMA can
+then answer: *did the L3 guardrailed grant (with drilled auto-rollback)
+coincide with better exception and recovery numbers for the same use case?*
+— a joining of two separate instruments, per the
+[integration guide](../docs/mama-integration.md#keep-the-measures-separate).
 
 Try scoring your own team with
 [`tools/autonomy_score.py`](../tools/autonomy_score.py).

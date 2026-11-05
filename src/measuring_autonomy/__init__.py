@@ -1,7 +1,7 @@
 """Measuring & Managing Autonomy toolkit.
 
 Scoring engine and Autonomy Ledger health checker for the framework
-(https://github.com/emmanuel-a-otchere/MeasuringAndManagingAutonomy).
+(https://github.com/emmanuel-a-otchere/measuring-and-managing-autonomy).
 
 The ledger module is imported lazily by its console command only, so
 `import measuring_autonomy` stays dependency-free; PyYAML is required
@@ -18,7 +18,7 @@ from .score import (
     safe_level,
 )
 
-__version__ = "1.1.0"
+__version__ = "2.1.1"
 
 __all__ = [
     "__version__",

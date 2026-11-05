@@ -52,10 +52,12 @@ STATUSES = ("active", "expired", "revoked", "draft")
 DEFAULT_CADENCE_DAYS = 90
 
 # Ledger format version handled by this tool (docs/versioning.md, docs/ledger-format.md).
-# Ledgers without a top-level `schema:` field are treated as schema 1
-# (backward compatibility with pre-versioning files). A newer schema than
-# supported is a warning, not an error: report on what is understood.
-SUPPORTED_SCHEMA_VERSION = 1
+# Schema 2 = the v2.0.0 ruleset: definitive levels L1..L5 with L0 as the
+# Submarine Line. Schema 1 files (retired 0..4 scale) are still readable but
+# warned about — their levels are not comparable with the current scale.
+# A newer schema than supported is a warning, not an error: report on what
+# is understood.
+SUPPORTED_SCHEMA_VERSION = 2
 
 
 def parse_date(value) -> dt.date | None:
@@ -84,8 +86,8 @@ def check_contract(c: dict, today: dt.date, idx: int) -> tuple[list[str], dict]:
         if value is not None and not (isinstance(value, list) and len(value) > 0):
             errors.append(f"{label}: '{field}' must be a non-empty list")
     # level
-    if "level" in c and (not isinstance(c["level"], int) or not 0 <= c["level"] <= 4):
-        errors.append(f"{label}: level must be an integer 0..4")
+    if "level" in c and (not isinstance(c["level"], int) or not 0 <= c["level"] <= 5):
+        errors.append(f"{label}: level must be an integer 0..5")
     # status
     if status not in STATUSES:
         errors.append(f"{label}: status must be one of {STATUSES}")
@@ -124,10 +126,16 @@ def health_report(ledger: dict, today: dt.date) -> dict:
     if not isinstance(schema, int) or schema < 1:
         raise ValueError(f"ledger 'schema' must be a positive integer, got {schema!r}")
     warnings: list[str] = []
+    if schema == 1:
+        warnings.append(
+            "ledger declares schema v1, which uses the retired 0..4 level scale "
+            "(pre-v2.0.0); those levels are NOT comparable with the current L1..L5 "
+            "scale — re-baseline the contracts and set schema: 2"
+        )
     if schema > SUPPORTED_SCHEMA_VERSION:
         warnings.append(
             f"ledger declares schema v{schema}; this tool supports v{SUPPORTED_SCHEMA_VERSION} — "
-            "validating the v1 fields it understands; upgrade the tool for full support"
+            "validating the fields it understands; upgrade the tool for full support"
         )
 
     contracts = ledger.get("contracts")
@@ -236,18 +244,33 @@ def _self_test() -> None:
     r = health_report(inv, today)
     assert any("after horizon" in e for e in r["validity_errors"]), r["validity_errors"]
 
-    # schema handling: missing field = schema 1 (backward compatible)
+    # schema handling: missing field = current supported schema (backward
+    # compatible with pre-versioning files)
     r = health_report({"contracts": [good["contracts"][0]]}, today)
-    assert r["schema_version"] == 1 and not r["schema_warnings"], r
+    assert r["schema_version"] == SUPPORTED_SCHEMA_VERSION and not r["schema_warnings"], r
 
-    # explicit schema 1 is accepted
+    # explicit schema 1 is accepted with the retired-scale warning
     r = health_report({"schema": 1, "contracts": [good["contracts"][0]]}, today)
-    assert r["schema_version"] == 1 and not r["schema_warnings"], r
+    assert r["schema_version"] == 1 and r["schema_warnings"], r
+
+    # schema 2 is the supported baseline: no warnings
+    r = health_report({"schema": 2, "contracts": [good["contracts"][0]]}, today)
+    assert r["schema_version"] == 2 and not r["schema_warnings"], r
 
     # future schema: warns but still validates (forward compatibility)
-    r = health_report({"schema": 2, "contracts": [good["contracts"][0]]}, today)
-    assert r["schema_version"] == 2 and r["schema_warnings"], r
+    r = health_report({"schema": 3, "contracts": [good["contracts"][0]]}, today)
+    assert r["schema_version"] == 3 and r["schema_warnings"], r
     assert not r["validity_errors"], r
+
+    # level boundaries on the 0..5 scale: 0 (Submarine Line) and 5 are valid
+    for lvl in (0, 5):
+        ok = {"contracts": [dict(good["contracts"][0], level=lvl)]}
+        r = health_report(ok, today)
+        assert not r["validity_errors"], (lvl, r["validity_errors"])
+    for lvl in (-1, 6):
+        bad = {"contracts": [dict(good["contracts"][0], level=lvl)]}
+        r = health_report(bad, today)
+        assert any("0..5" in e for e in r["validity_errors"]), (lvl, r["validity_errors"])
 
     # invalid schema value
     try:
@@ -270,7 +293,7 @@ def _self_test() -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Check Autonomy Ledger health (v1 format).")
+    parser = argparse.ArgumentParser(description="Check Autonomy Ledger health (schema v2; v1 warned).")
     parser.add_argument("ledger", nargs="?", help="path to ledger.yaml")
     parser.add_argument("--today", help="override today's date (ISO) for testing")
     parser.add_argument("--json", action="store_true", help="emit JSON")

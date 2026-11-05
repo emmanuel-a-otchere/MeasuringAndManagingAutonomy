@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/emmanuel-a-otchere/measuring-and-managing-autonomy/blob/main/schema/mama-scorecard-export.schema.json",
+  "title": "mama scorecard export (export_version 1.0.0)",
+  "description": "Machine-readable export of one mama autonomy assessment (one unit x one decision domain). See docs/export-format.md. Ruleset v2 scale: definitive levels L1-L5, L0 = Submarine Line; dimension scores 0-5.",
+  "type": "object",
+  "required": ["export_format", "export_version", "ruleset_version", "linkage", "scorecard"],
+  "additionalProperties": false,
+  "properties": {
+    "export_format": { "const": "mama-scorecard-export" },
+    "export_version": { "const": "1.0.0" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "ruleset_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "linkage": {
+      "type": "object",
+      "required": ["unit", "domain"],
+      "additionalProperties": false,
+      "properties": {
+        "use_case_id": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1 },
+        "unit_type": { "type": "string", "minLength": 1 },
+        "domain": { "type": "string", "minLength": 1 },
+        "contract_id": { "type": "string", "minLength": 1 },
+        "grantor": { "type": "string", "minLength": 1 },
+        "assessors": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "review_date": { "type": "string", "format": "date" }
+      }
+    },
+    "scorecard": {
+      "type": "object",
+      "required": ["ruleset_version", "scores", "safe_grant_level", "notes", "recommended_move"],
+      "additionalProperties": false,
+      "properties": {
+        "ruleset_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "scores": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["D1", "D2", "D3", "D4", "D5", "D6"],
+          "properties": {
+            "D1": { "$ref": "#/$defs/dimensionScore" },
+            "D2": { "$ref": "#/$defs/dimensionScore" },
+            "D3": { "$ref": "#/$defs/dimensionScore" },
+            "D4": { "$ref": "#/$defs/dimensionScore" },
+            "D5": { "$ref": "#/$defs/dimensionScore" },
+            "D6": { "$ref": "#/$defs/dimensionScore" }
+          }
+        },
+        "safe_grant_level": { "type": "integer", "minimum": 0, "maximum": 5, "description": "min(D3, D4, D6); 0 = Submarine Line (nothing grantable yet)" },
+        "granted_level": { "type": ["integer", "null"], "minimum": 0, "maximum": 5 },
+        "notes": { "type": "array", "items": { "type": "string" } },
+        "recommended_move": { "type": "string", "minLength": 1 }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["dimension", "ref"],
+        "additionalProperties": false,
+        "properties": {
+          "dimension": { "enum": ["D1", "D2", "D3", "D4", "D5", "D6"] },
+          "ref": { "type": "string", "minLength": 1, "description": "Pointer (URL or id) to the evidence — never embedded content" }
+        }
+      }
+    },
+    "ledger_ref": {
+      "type": "object",
+      "required": ["schema", "contract_id"],
+      "additionalProperties": false,
+      "properties": {
+        "file": { "type": "string", "minLength": 1 },
+        "schema": { "type": "integer", "minimum": 2 },
+        "contract_id": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "$defs": {
+    "dimensionScore": { "type": "integer", "minimum": 0, "maximum": 5 }
+  }
+}
