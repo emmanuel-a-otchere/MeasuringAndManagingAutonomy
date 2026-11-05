@@ -2,8 +2,31 @@
 
 > The interface between **`mama`** (*measuring and managing autonomy* — this
 > method and toolkit, whose canonical home is this repository) and **MAMA**
-> (*Measuring Automation & Measuring Autonomy* — the broader framework that
+> (*Measuring Automation, Managing Autonomy* — the broader framework that
 > uses `mama` alongside automation measurement and value tracking).
+
+## The interlock by name, acronym, and meaning
+
+The acronym is authoritative and is not spelled out any other way:
+**MAMA — Measuring Automation, Managing Autonomy**. The comma carries the
+division of labor, and it is exactly why the two names interlock:
+
+- **"Measuring Automation"** is MAMA's own capability
+  ([mama-metrics](https://github.com/Measuring-Automation-Managing-Autonomy/mama-metrics)):
+  what work is automated, how well the automated process performs, what
+  value is realized. `mama` does not provide this.
+- **"Managing Autonomy"** is delivered by `mama` — *measuring and managing
+  autonomy* — which makes delegated decision rights explicit, assessable,
+  and governed. MAMA's own layers do not provide this; they consume it.
+- So each half of the acronym **names the instrument that provides it**:
+  `mama` is, by name and by function, the managing-autonomy component of
+  MAMA. The lowercase name and the uppercase acronym fit together rather
+  than overlap: no merged identity, no duplicated capability, no composite.
+
+This is why "Measuring Automation & Measuring Autonomy" was a spelling
+mistake: it claimed `mama` only *measured* autonomy — dropping the managing
+that is the method's entire point — and it broke the name-to-function
+mapping that makes the interlock coherent.
 
 ## The boundary in one table
 

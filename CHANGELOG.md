@@ -8,6 +8,21 @@ ruleset** (`RULESET_VERSION`, e.g. `1.0.0`) and the **ledger format**
 
 ## Unreleased
 
+## v2.1.2 — 2026-11-05
+
+### Identity (authoritative correction)
+
+- The authoritative expansion of **MAMA** is **Measuring Automation,
+  Managing Autonomy** (steward decision). All prior spellings — notably
+  "Measuring Automation & Measuring Autonomy" — were spelling mistakes and
+  are corrected across the README, naming box, integration guide, and site.
+- The correction matters: the comma carries the division of labor. MAMA
+  *measures automation* (its own capability); `mama` — measuring and
+  *managing* autonomy — is the managing-autonomy component of MAMA by name
+  and by function. The old spelling dropped "managing," which broke the
+  name-to-function interlock that brings `mama` into MAMA.
+
+## v2.1.1 — 2026-11-04
 - Archived the original 2022 concept diagram ("Measuring Autonomy Based on
   3-Axis of Freedom") in `docs/img/` with provenance and a mapping of its
   2022 axes (self-governance, adaptability, automation) to the current

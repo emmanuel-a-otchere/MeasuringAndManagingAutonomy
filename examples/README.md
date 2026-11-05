@@ -80,7 +80,7 @@ move is **hold**, with D6 named as the dimension to watch.
 
 ## How MAMA consumes this example
 
-A consuming **MAMA** project (*Measuring Automation & Measuring Autonomy* —
+A consuming **MAMA** project (*Measuring Automation, Managing Autonomy* —
 the umbrella framework) links its use-case record to these `mama` artifacts
 by stable identifiers: `use_case_id` ↔ unit `payments-team`, domain
 `production-deploys`, contract `payments-deploys-v2`, and the scorecard with
